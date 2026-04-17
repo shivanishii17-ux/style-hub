@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Style Hub — Fashion for Everyone</title>
+  <meta name="description" content="Discover the latest fashion trends for Kids, Men, Boys, Girls & Women at Style Hub. Shop top clothing categories with free shipping." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════ HEADER ══════════════════ -->
+  <header class="header" id="header">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a href="#" class="logo" id="logo-link">
+        <div class="logo-icon">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <path d="M16 2L4 8v8c0 7 5.2 13.5 12 15.5C22.8 29.5 28 23 28 16V8L16 2z" fill="url(#logoGrad)"/>
+            <path d="M11 16l3 3 7-7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="logoGrad" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6C3BFF"/>
+                <stop offset="1" stop-color="#C850C0"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="logo-text">Style<span class="logo-accent">Hub</span></span>
+      </a>
+
+      <!-- Search Bar -->
+      <div class="search-wrap" id="search-wrap">
+        <div class="search-bar">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <input
+            type="text"
+            id="search-input"
+            class="search-input"
+            placeholder="Search dresses, tops, shirts, kids wear…"
+            autocomplete="off"
+          />
+          <button class="search-clear" id="search-clear" aria-label="Clear search">×</button>
+        </div>
+        <!-- Visual Search / Camera Button -->
+        <button class="camera-btn" id="camera-btn" aria-label="Visual search with camera" title="Search by image">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+          <span class="camera-tooltip">Visual Search</span>
+        </button>
+      </div>
+
+      <!-- Header Right Actions -->
+      <div class="header-actions">
+        <button class="action-btn" aria-label="Wishlist" title="Wishlist">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+          </svg>
+          <span class="badge">3</span>
+        </button>
+        <button class="action-btn" aria-label="Cart" title="Shopping cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+          </svg>
+          <span class="badge">5</span>
+        </button>
+        <button class="action-btn profile-btn" aria-label="Account" title="My Account">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" id="mobile-menu">
+      <a href="#kids-row">Kids</a>
+      <a href="#mens-row">Mens &amp; Boys</a>
+      <a href="#womens-row">Girls &amp; Womens</a>
+      <a href="#">Sale 🔥</a>
+      <a href="#">New Arrivals ✨</a>
+    </nav>
+
+    <!-- Desktop Nav -->
+    <nav class="desktop-nav">
+      <a href="#kids-row" class="nav-item">Kids</a>
+      <a href="#mens-row" class="nav-item">Mens &amp; Boys</a>
+      <a href="#womens-row" class="nav-item">Girls &amp; Womens</a>
+      <a href="#" class="nav-item nav-sale">Sale 🔥</a>
+      <a href="#" class="nav-item">New Arrivals</a>
+      <a href="#" class="nav-item">Brands</a>
+    </nav>
+  </header>
+
+  <!-- ══════════════════ MAIN ══════════════════ -->
+  <main class="main">
+
+    <!-- ─── HERO BANNER ─── -->
+    <section class="hero-banner">
+      <div class="hero-text">
+        <span class="hero-tag">Spring / Summer 2026</span>
+        <h1 class="hero-title">Fashion That<br/><span class="hero-accent">Feels Like You</span></h1>
+        <p class="hero-sub">Explore curated collections for every age, style &amp; season.</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="document.getElementById('kids-row').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+          <button class="btn-outline" onclick="document.getElementById('womens-row').scrollIntoView({behavior:'smooth'})">Explore Lookbook →</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-img-wrap">
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Fashion model in stylish outfit" class="hero-img" loading="lazy"/>
+          <div class="hero-badge-float">
+            <span class="hbf-label">New In</span>
+            <span class="hbf-num">200+</span>
+            <span class="hbf-sub">Styles</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PROMO STRIP ─── -->
+    <div class="promo-strip">
+      <span>🚚 Free Shipping on orders over ₹999</span>
+      <span class="strip-sep">|</span>
+      <span>🔄 Easy 30-day Returns</span>
+      <span class="strip-sep">|</span>
+      <span>✨ New Arrivals Every Week</span>
+      <span class="strip-sep">|</span>
+      <span>💳 EMI Available</span>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         ROW 1 — KIDS
+    ═══════════════════════════════════════ -->
+    <section class="category-row" id="kids-row">
+      <div class="category-label-col">
+        <div class="cat-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a5 5 0 015 5v2H7V7a5 5 0 015-5z"/>
+            <rect x="3" y="9" width="18" height="13" rx="2"/>
+          </svg>
+        </div>
+        <h2 class="cat-name">Kids</h2>
+        <p class="cat-desc">Fun &amp; comfy<br/>styles for little ones</p>
+        <button class="cat-cta-btn" id="kids-cat-btn">Categories
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <div class="cat-sub-links">
+          <span class="sub-chip">Boys 2–12</span>
+          <span class="sub-chip">Girls 2–12</span>
+          <span class="sub-chip">Infants</span>
+          <span class="sub-chip">Teens</span>
+        </div>
+      </div>
+
+      <div class="product-scroll-wrap">
+        <button class="scroll-arrow left" onclick="scrollRow('kids-scroll',-1)" aria-label="Scroll left">‹</button>
+        <div class="product-scroll" id="kids-scroll">
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?w=400&q=80" alt="Kids colorful t-shirt" loading="lazy"/>
+              <span class="prod-tag new">New</span>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">UrbanKids</p>
+              <p class="prod-name">Printed Cotton Tee</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹349</span>
+                <span class="prod-mrp">₹699</span>
+                <span class="prod-disc">50% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1471286174890-9c112ac6823b?w=400&q=80" alt="Kids denim overalls" loading="lazy"/>
+              <span class="prod-tag sale">Sale</span>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">TinyStyle</p>
+              <p class="prod-name">Denim Dungaree Set</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹699</span>
+                <span class="prod-mrp">₹1199</span>
+                <span class="prod-disc">42% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400&q=80" alt="Kids summer dress" loading="lazy"/>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">LittleFash</p>
+              <p class="prod-name">Floral Summer Frock</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹499</span>
+                <span class="prod-mrp">₹899</span>
+                <span class="prod-disc">44% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=400&q=80" alt="Kids casual shorts set" loading="lazy"/>
+              <span class="prod-tag trending">Trending</span>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Kiddos</p>
+              <p class="prod-name">Shorts &amp; Tee Combo</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹549</span>
+                <span class="prod-mrp">₹999</span>
+                <span class="prod-disc">45% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1570569295-01b4e2f0a7f5?w=400&q=80" alt="Kids tracksuit" loading="lazy"/>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">SportKid</p>
+              <p class="prod-name">Athletic Tracksuit</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹799</span>
+                <span class="prod-mrp">₹1399</span>
+                <span class="prod-disc">43% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1550639525-c97d455acf70?w=400&q=80" alt="Kids party wear dress" loading="lazy"/>
+              <span class="prod-tag new">New</span>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">LittleFash</p>
+              <p class="prod-name">Party Frock - Pink</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹899</span>
+                <span class="prod-mrp">₹1499</span>
+                <span class="prod-disc">40% off</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+        <button class="scroll-arrow right" onclick="scrollRow('kids-scroll',1)" aria-label="Scroll right">›</button>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         ROW 2 — MENS & BOYS
+    ═══════════════════════════════════════ -->
+    <section class="category-row alt-row" id="mens-row">
+      <div class="category-label-col">
+        <div class="cat-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="7" r="4"/><path d="M5.5 21a8.38 8.38 0 0113 0"/>
+          </svg>
+        </div>
+        <h2 class="cat-name">Mens &amp;<br/>Boys</h2>
+        <p class="cat-desc">Sharp &amp; casual<br/>everyday wear</p>
+        <button class="cat-cta-btn" id="mens-cat-btn">Shop All
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <div class="cat-sub-links">
+          <span class="sub-chip">Shirts</span>
+          <span class="sub-chip">Trousers</span>
+          <span class="sub-chip">Jackets</span>
+          <span class="sub-chip">Ethnic</span>
+        </div>
+      </div>
+
+      <div class="product-scroll-wrap">
+        <button class="scroll-arrow left" onclick="scrollRow('mens-scroll',-1)" aria-label="Scroll left">‹</button>
+        <div class="product-scroll" id="mens-scroll">
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80" alt="Men white dress shirt" loading="lazy"/>
+              <span class="prod-tag new">New</span>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">FormalEdge</p>
+              <p class="prod-name">Slim Fit Dress Shirt</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹699</span>
+                <span class="prod-mrp">₹1299</span>
+                <span class="prod-disc">46% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=400&q=80" alt="Men casual denim jacket" loading="lazy"/>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">UrbanDen</p>
+              <p class="prod-name">Washed Denim Jacket</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹1299</span>
+                <span class="prod-mrp">₹2499</span>
+                <span class="prod-disc">48% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=400&q=80" alt="Men black t-shirt" loading="lazy"/>
+              <span class="prod-tag trending">Trending</span>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">BasixCo</p>
+              <p class="prod-name">Oversized Graphic Tee</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹449</span>
+                <span class="prod-mrp">₹799</span>
+                <span class="prod-disc">44% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&q=80" alt="Men trousers" loading="lazy"/>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">SlimFit Co</p>
+              <p class="prod-name">Cargo Slim Trousers</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹899</span>
+                <span class="prod-mrp">₹1699</span>
+                <span class="prod-disc">47% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1602810319428-019690571b5b?w=400&q=80" alt="Men polo shirt" loading="lazy"/>
+              <span class="prod-tag sale">Sale</span>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">PoloElite</p>
+              <p class="prod-name">Classic Polo Shirt</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹549</span>
+                <span class="prod-mrp">₹999</span>
+                <span class="prod-disc">45% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=400&q=80" alt="Men ethnic kurta" loading="lazy"/>
+              <span class="prod-tag new">New</span>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">EthnicVibe</p>
+              <p class="prod-name">Mandarin Collar Kurta</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹799</span>
+                <span class="prod-mrp">₹1499</span>
+                <span class="prod-disc">47% off</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+        <button class="scroll-arrow right" onclick="scrollRow('mens-scroll',1)" aria-label="Scroll right">›</button>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         ROW 3 — GIRLS & WOMENS
+    ═══════════════════════════════════════ -->
+    <section class="category-row" id="womens-row">
+      <div class="category-label-col">
+        <div class="cat-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="5" r="3"/>
+            <path d="M12 8v5m-4 3l4-3 4 3M8 21h8"/>
+            <path d="M6 14l-2 7M18 14l2 7"/>
+          </svg>
+        </div>
+        <h2 class="cat-name">Girls &amp;<br/>Womens</h2>
+        <p class="cat-desc">Elegant &amp; vibrant<br/>fashion picks</p>
+        <button class="cat-cta-btn" id="womens-cat-btn">Shop All
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <div class="cat-sub-links">
+          <span class="sub-chip">Dresses</span>
+          <span class="sub-chip">Sarees</span>
+          <span class="sub-chip">Tops</span>
+          <span class="sub-chip">Western</span>
+        </div>
+      </div>
+
+      <div class="product-scroll-wrap">
+        <button class="scroll-arrow left" onclick="scrollRow('womens-scroll',-1)" aria-label="Scroll left">‹</button>
+        <div class="product-scroll" id="womens-scroll">
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=400&q=80" alt="Women floral maxi dress" loading="lazy"/>
+              <span class="prod-tag new">New</span>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">FloraLux</p>
+              <p class="prod-name">Floral Maxi Wrap Dress</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹999</span>
+                <span class="prod-mrp">₹1999</span>
+                <span class="prod-disc">50% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80" alt="Women chic blazer outfit" loading="lazy"/>
+              <span class="prod-tag trending">Trending</span>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">ChicWear</p>
+              <p class="prod-name">Tailored Blazer Set</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹1499</span>
+                <span class="prod-mrp">₹2999</span>
+                <span class="prod-disc">50% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&q=80" alt="Women summer crop top" loading="lazy"/>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">SummerVibes</p>
+              <p class="prod-name">Ruched Crop Top</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹399</span>
+                <span class="prod-mrp">₹799</span>
+                <span class="prod-disc">50% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1551803091-e20673f15770?w=400&q=80" alt="Women ethnic kurta" loading="lazy"/>
+              <span class="prod-tag sale">Sale</span>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">EthnicBliss</p>
+              <p class="prod-name">Printed Anarkali Kurta</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹849</span>
+                <span class="prod-mrp">₹1699</span>
+                <span class="prod-disc">50% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80" alt="Women bodycon dress" loading="lazy"/>
+              <span class="prod-tag new">New</span>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">GlamFit</p>
+              <p class="prod-name">Velvet Bodycon Dress</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹1199</span>
+                <span class="prod-mrp">₹2199</span>
+                <span class="prod-disc">45% off</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="prod-img-wrap">
+              <img src="https://images.unsplash.com/photo-1583846783214-7229a5eb4f60?w=400&q=80" alt="Women boho skirt" loading="lazy"/>
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">BohoSoul</p>
+              <p class="prod-name">Tiered Maxi Skirt</p>
+              <div class="prod-price-row">
+                <span class="prod-price">₹749</span>
+                <span class="prod-mrp">₹1399</span>
+                <span class="prod-disc">46% off</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+        <button class="scroll-arrow right" onclick="scrollRow('womens-scroll',1)" aria-label="Scroll right">›</button>
+      </div>
+    </section>
+
+    <!-- ─── BRAND LOGOS STRIP ─── -->
+    <section class="brands-strip">
+      <p class="brands-label">Top Brands</p>
+      <div class="brands-row">
+        <span class="brand-pill">Zara</span>
+        <span class="brand-pill">H&amp;M</span>
+        <span class="brand-pill">Mango</span>
+        <span class="brand-pill">Levi's</span>
+        <span class="brand-pill">Nike</span>
+        <span class="brand-pill">Adidas</span>
+        <span class="brand-pill">Fabindia</span>
+        <span class="brand-pill">W</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════ BOTTOM NAV ══════════════════ -->
+  <nav class="bottom-nav" id="bottom-nav" role="navigation" aria-label="Main navigation">
+
+    <a href="#" class="bn-item" id="bn-accessibility" aria-label="Accessibility options">
+      <div class="bn-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <circle cx="12" cy="8" r="2"/>
+          <path d="M8 13h8M10 13v5M14 13v5"/>
+        </svg>
+      </div>
+      <span class="bn-label">Accessibility</span>
+    </a>
+
+    <a href="#header" class="bn-item bn-home active" id="bn-home" aria-label="Homepage">
+      <div class="bn-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <span class="bn-label">Homepage</span>
+    </a>
+
+    <a href="#" class="bn-item" id="bn-profile" aria-label="My profile">
+      <div class="bn-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <span class="bn-label">Profile</span>
+    </a>
+
+  </nav>
+
+  <!-- ══════════════════ SITE FOOTER ══════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand-col">
+        <div class="footer-logo">
+          <div class="logo-icon small">
+            <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+              <path d="M16 2L4 8v8c0 7 5.2 13.5 12 15.5C22.8 29.5 28 23 28 16V8L16 2z" fill="url(#fLogoGrad)"/>
+              <path d="M11 16l3 3 7-7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs>
+                <linearGradient id="fLogoGrad" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#6C3BFF"/>
+                  <stop offset="1" stop-color="#C850C0"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span class="logo-text small">Style<span class="logo-accent">Hub</span></span>
+        </div>
+        <p class="footer-tagline">Fashion for every age, every moment.</p>
+      </div>
+      <div class="footer-links-col">
+        <h4>Shop</h4>
+        <a href="#kids-row">Kids</a>
+        <a href="#mens-row">Mens &amp; Boys</a>
+        <a href="#womens-row">Girls &amp; Womens</a>
+        <a href="#">New Arrivals</a>
+      </div>
+      <div class="footer-links-col">
+        <h4>Help</h4>
+        <a href="#">Shipping Info</a>
+        <a href="#">Returns</a>
+        <a href="#">Size Guide</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div class="footer-links-col">
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Careers</a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 Style Hub · Designed with ♥ for fashion lovers</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
