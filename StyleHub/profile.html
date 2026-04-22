@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile — StyleHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--primary:#6C3BFF;--grad:linear-gradient(135deg,#6C3BFF,#C850C0);--bg:#f3f4f6;--surface:#fff;--border:#e5e7eb;--text:#111827;--text2:#374151;--text3:#6b7280;--radius:16px;--font-head:'Outfit',sans-serif;--font-body:'Inter',sans-serif;}
+    body.dark{--bg:#0a0a0b;--surface:#111118;--border:rgba(255,255,255,0.1);--text:#fff;--text2:rgba(255,255,255,0.8);--text3:rgba(255,255,255,0.45);}
+    body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;}
+    .page-header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+    .back-btn{width:38px;height:38px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text2);font-size:1.1rem;}
+    .page-title{font-family:var(--font-head);font-size:1.2rem;font-weight:800;}
+    .page-title span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .container{max-width:700px;margin:0 auto;padding:24px 16px;}
+    /* Avatar */
+    .profile-hero{text-align:center;padding:32px 20px;background:var(--surface);border:1px solid var(--border);border-radius:20px;margin-bottom:20px;}
+    .avatar{width:80px;height:80px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 14px;box-shadow:0 8px 24px rgba(108,59,255,.35);}
+    .profile-name{font-family:var(--font-head);font-size:1.5rem;font-weight:800;margin-bottom:4px;}
+    .profile-email{font-size:.85rem;color:var(--text3);}
+    .profile-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px;}
+    .badge-pill{padding:5px 14px;border-radius:999px;font-size:.72rem;font-weight:700;background:linear-gradient(135deg,rgba(108,59,255,.15),rgba(200,80,192,.15));border:1px solid rgba(108,59,255,.3);color:var(--primary);}
+    /* Stats */
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+    .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;}
+    .stat-num{font-family:var(--font-head);font-size:1.8rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .stat-label{font-size:.72rem;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-top:4px;}
+    /* Menu */
+    .menu-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:20px;}
+    .menu-item{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:var(--text);transition:background .2s;cursor:pointer;}
+    .menu-item:last-child{border:none;}
+    .menu-item:hover{background:rgba(108,59,255,.05);}
+    .menu-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,rgba(108,59,255,.15),rgba(200,80,192,.15));display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+    .menu-text{flex:1;}
+    .menu-title{font-size:.9rem;font-weight:600;margin-bottom:2px;}
+    .menu-sub{font-size:.75rem;color:var(--text3);}
+    .menu-arrow{color:var(--text3);font-size:.9rem;}
+    /* Toggle */
+    .toggle-wrap{display:flex;align-items:center;gap:10px;}
+    .toggle{width:44px;height:24px;border-radius:12px;background:var(--border);position:relative;cursor:pointer;transition:background .3s;flex-shrink:0;}
+    .toggle.on{background:var(--grad);}
+    .toggle::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform .3s;box-shadow:0 2px 4px rgba(0,0,0,.2);}
+    .toggle.on::after{transform:translateX(20px);}
+    .logout-btn{width:100%;padding:14px;border-radius:999px;background:rgba(239,68,68,.1);border:1.5px solid rgba(239,68,68,.3);color:#ef4444;font-size:.9rem;font-weight:700;font-family:var(--font-body);cursor:pointer;transition:all .2s;}
+    .logout-btn:hover{background:rgba(239,68,68,.2);}
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <a onclick="history.back()" class="back-btn" style="cursor:pointer">←</a>
+    <div class="page-title">👤 My <span>Profile</span></div>
+  </header>
+  <div class="container">
+    <div class="profile-hero" id="profile-hero">
+      <div class="avatar" id="avatar">👤</div>
+      <div class="profile-name" id="profile-name">Guest</div>
+      <div class="profile-email" id="profile-email">Not logged in</div>
+      <div class="profile-badges" id="profile-badges"></div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num" id="stat-outfits">0</div><div class="stat-label">Saved Outfits</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-style">—</div><div class="stat-label">Style Type</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-body">—</div><div class="stat-label">Body Type</div></div>
+    </div>
+
+    <div class="menu-card">
+      <a href="outfit-builder.html" class="menu-item"><div class="menu-icon">👗</div><div class="menu-text"><div class="menu-title">Outfit Builder</div><div class="menu-sub">Create & score outfit combinations</div></div><span class="menu-arrow">›</span></a>
+      <a href="color-picker.html" class="menu-item"><div class="menu-icon">🎨</div><div class="menu-text"><div class="menu-title">Color Compatibility</div><div class="menu-sub">Check if your colors match</div></div><span class="menu-arrow">›</span></a>
+
+      <a href="weather-outfit.html" class="menu-item"><div class="menu-icon">🌤️</div><div class="menu-text"><div class="menu-title">Weather Outfit</div><div class="menu-sub">Dress right for today's weather</div></div><span class="menu-arrow">›</span></a>
+
+      <a href="wishlist.html" class="menu-item"><div class="menu-icon">❤️</div><div class="menu-text"><div class="menu-title">My Wishlist</div><div class="menu-sub">View saved outfits</div></div><span class="menu-arrow">›</span></a>
+      <a href="advisor.html" class="menu-item"><div class="menu-icon">🤖</div><div class="menu-text"><div class="menu-title">AI Style Advisor</div><div class="menu-sub">Chat with your personal stylist</div></div><span class="menu-arrow">›</span></a>
+      <div class="menu-item" onclick="toggleDark()"><div class="menu-icon">🌙</div><div class="menu-text"><div class="menu-title">Dark Mode</div><div class="menu-sub">Switch theme</div></div><div class="toggle-wrap"><div class="toggle" id="dark-toggle"></div></div></div>
+    </div>
+
+    <button class="logout-btn" id="logout-btn" onclick="logout()">Logout</button>
+  </div>
+  <script>
+    // Load user
+    const user=JSON.parse(localStorage.getItem('sh_user')||'null');
+    if(user){
+      document.getElementById('avatar').textContent=user.name[0].toUpperCase();
+      document.getElementById('profile-name').textContent=user.name;
+      document.getElementById('profile-email').textContent=user.email;
+    }
+    // Stats
+    const outfits=JSON.parse(localStorage.getItem('sh_outfits')||'[]');
+    document.getElementById('stat-outfits').textContent=outfits.length;
+    const style=localStorage.getItem('sh_style');
+    if(style){document.getElementById('stat-style').textContent=style.split(' ')[0];document.getElementById('profile-badges').innerHTML+=`<span class="badge-pill">✨ ${style}</span>`;}
+    const body=localStorage.getItem('sh_bodytype');
+    if(body){document.getElementById('stat-body').textContent=body.split(' ')[0];document.getElementById('profile-badges').innerHTML+=`<span class="badge-pill">📐 ${body.split(' ')[0]}</span>`;}
+
+    // Dark mode
+    const isDark=localStorage.getItem('sh_dark')==='1';
+    if(isDark){document.body.classList.add('dark');document.getElementById('dark-toggle').classList.add('on');}
+    function toggleDark(){
+      const on=document.body.classList.toggle('dark');
+      document.getElementById('dark-toggle').classList.toggle('on',on);
+      localStorage.setItem('sh_dark',on?'1':'0');
+    }
+    function logout(){localStorage.removeItem('sh_user');window.location.href='index.html';}
+  </script>
+</body>
+</html>

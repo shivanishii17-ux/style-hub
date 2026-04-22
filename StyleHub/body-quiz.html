@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Body Type Quiz — StyleHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--primary:#6C3BFF;--grad:linear-gradient(135deg,#6C3BFF,#C850C0);--bg:#f3f4f6;--surface:#fff;--border:#e5e7eb;--text:#111827;--text2:#374151;--text3:#6b7280;--radius:16px;--font-head:'Outfit',sans-serif;--font-body:'Inter',sans-serif;}
+    body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;}
+    .page-header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+    .back-btn{width:38px;height:38px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text2);font-size:1.1rem;}
+    .page-title{font-family:var(--font-head);font-size:1.2rem;font-weight:800;}
+    .page-title span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .container{max-width:700px;margin:0 auto;padding:24px 16px;}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:20px;}
+    .quiz-intro{text-align:center;margin-bottom:24px;}
+    .quiz-intro h2{font-family:var(--font-head);font-size:1.5rem;font-weight:800;margin-bottom:8px;}
+    .quiz-intro p{font-size:.9rem;color:var(--text3);line-height:1.6;}
+    .question{margin-bottom:28px;}
+    .question h3{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--text);}
+    .options{display:flex;flex-direction:column;gap:10px;}
+    .option{padding:14px 18px;border:2px solid var(--border);border-radius:12px;background:var(--surface);cursor:pointer;font-size:.85rem;font-weight:500;transition:all .2s;}
+    .option:hover{border-color:var(--primary);background:#f0ebff;}
+    .option.selected{border-color:var(--primary);background:#f0ebff;box-shadow:0 0 0 3px rgba(108,59,255,.15);}
+    .submit-btn{width:100%;padding:14px;border-radius:999px;background:var(--grad);color:#fff;font-size:.95rem;font-weight:700;font-family:var(--font-body);cursor:pointer;box-shadow:0 4px 14px rgba(108,59,255,.35);border:none;transition:all .2s;}
+    .submit-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(108,59,255,.5);}
+    .submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+    /* Result */
+    .result{text-align:center;}
+    .result-icon{font-size:4rem;margin-bottom:12px;}
+    .result h2{font-family:var(--font-head);font-size:1.8rem;font-weight:800;margin-bottom:8px;}
+    .result-type{display:inline-block;padding:6px 18px;border-radius:999px;background:var(--grad);color:#fff;font-size:.85rem;font-weight:700;margin-bottom:16px;}
+    .result p{font-size:.88rem;color:var(--text2);line-height:1.7;margin-bottom:12px;}
+    .result h4{font-family:var(--font-head);font-size:1rem;font-weight:700;margin:20px 0 10px;color:var(--text);}
+    .result ul{list-style:none;padding:0;}
+    .result li{padding:8px 0;font-size:.85rem;color:var(--text2);border-bottom:1px solid var(--border);}
+    .result li:last-child{border:none;}
+    .retake-btn{margin-top:20px;padding:10px 24px;border-radius:999px;background:var(--bg);border:1.5px solid var(--border);font-size:.82rem;font-weight:600;font-family:var(--font-body);color:var(--text2);cursor:pointer;}
+    .retake-btn:hover{border-color:var(--primary);color:var(--primary);}
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <a onclick="history.back()" class="back-btn" style="cursor:pointer">←</a>
+    <div class="page-title">📐 Body Type <span>Quiz</span></div>
+  </header>
+  <div class="container">
+    <div class="card" id="quiz-card">
+      <div class="quiz-intro">
+        <h2>Find Your Body Type</h2>
+        <p>Answer 5 quick questions to discover your body shape and get personalized outfit recommendations.</p>
+      </div>
+      <div class="question"><h3>1. Your shoulders compared to your hips?</h3><div class="options"><div class="option" onclick="select(0,0,this)">Shoulders wider than hips</div><div class="option" onclick="select(0,1,this)">Shoulders and hips about equal</div><div class="option" onclick="select(0,2,this)">Hips wider than shoulders</div></div></div>
+      <div class="question"><h3>2. Your waist definition?</h3><div class="options"><div class="option" onclick="select(1,0,this)">Very defined / narrow waist</div><div class="option" onclick="select(1,1,this)">Slightly defined</div><div class="option" onclick="select(1,2,this)">Not much definition / straight</div></div></div>
+      <div class="question"><h3>3. Where do you gain weight first?</h3><div class="options"><div class="option" onclick="select(2,0,this)">Upper body / bust / arms</div><div class="option" onclick="select(2,1,this)">Midsection / stomach</div><div class="option" onclick="select(2,2,this)">Lower body / hips / thighs</div></div></div>
+      <div class="question"><h3>4. Your overall body shape looks like?</h3><div class="options"><div class="option" onclick="select(3,0,this)">Inverted triangle (broad shoulders)</div><div class="option" onclick="select(3,1,this)">Rectangle / straight up and down</div><div class="option" onclick="select(3,2,this)">Hourglass / curvy</div><div class="option" onclick="select(3,3,this)">Pear / triangle (wider bottom)</div><div class="option" onclick="select(3,4,this)">Apple / round (fuller midsection)</div></div></div>
+      <div class="question"><h3>5. Your bust size relative to your frame?</h3><div class="options"><div class="option" onclick="select(4,0,this)">Larger / prominent</div><div class="option" onclick="select(4,1,this)">Proportionate / average</div><div class="option" onclick="select(4,2,this)">Smaller / petite</div></div></div>
+      <button class="submit-btn" id="submit-btn" onclick="calculate()" disabled>Get My Body Type ✨</button>
+    </div>
+    <div class="card" id="result-card" style="display:none"></div>
+  </div>
+  <script>
+    const answers=[-1,-1,-1,-1,-1];
+    function select(q,a,el){
+      answers[q]=a;
+      el.parentElement.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('submit-btn').disabled=answers.includes(-1);
+    }
+    function calculate(){
+      let type,icon,desc,dos,donts;
+      const[a0,a1,a2,a3,a4]=answers;
+      // Hourglass
+      if(a1===0&&a3===2){type='Hourglass ⌛';icon='⌛';desc='You have a defined waist with balanced shoulders and hips. Your curves are your strength.';dos=['Wrap dresses','Belted styles','Fitted tops','High-waisted bottoms','V-necks'];donts=['Shapeless/boxy clothes','Oversized everything','Low-rise bottoms'];}
+      // Pear
+      else if(a0===2||a2===2||a3===3){type='Pear 🍐';icon='🍐';desc='Your hips are wider than your shoulders. Balance your silhouette by adding volume on top.';dos=['A-line skirts','Wide-leg trousers','Structured shoulders','Bright tops','Dark bottoms'];donts=['Skinny jeans with tight tops','Hip pockets','Tapered trousers'];}
+      // Apple
+      else if(a2===1||a3===4){type='Apple 🍎';icon='🍎';desc='You carry weight around your midsection. Elongate your torso and draw attention up or down.';dos=['Empire waist','V-necks','Flowy tops','Straight-leg trousers','Structured jackets'];donts=['Tight belts at waist','Clingy fabrics','Crop tops'];}
+      // Inverted Triangle
+      else if(a0===0||a3===0){type='Inverted Triangle 🔺';icon='🔺';desc='Your shoulders are broader than your hips. Balance by adding volume to your lower half.';dos=['A-line skirts','Wide-leg trousers','Bright bottoms','V-necks','Minimal shoulder details'];donts=['Shoulder pads','Boat necks','Skinny jeans with fitted tops'];}
+      // Rectangle
+      else{type='Rectangle 📏';icon='📏';desc='Your shoulders, waist, and hips are about the same width. Create curves with strategic styling.';dos=['Belted styles','Peplum tops','Ruffles','Layering','Prints and textures'];donts=['Straight shapeless cuts','Boxy oversized everything'];}
+
+      document.getElementById('result-card').innerHTML=`<div class="result"><div class="result-icon">${icon}</div><h2>Your Body Type</h2><div class="result-type">${type}</div><p>${desc}</p><h4>✅ Best Styles for You</h4><ul>${dos.map(d=>`<li>✓ ${d}</li>`).join('')}</ul><h4>❌ Avoid These</h4><ul>${donts.map(d=>`<li>✗ ${d}</li>`).join('')}</ul><button class="retake-btn" onclick="location.reload()">Retake Quiz</button></div>`;
+      document.getElementById('result-card').style.display='block';
+      document.getElementById('quiz-card').style.display='none';
+      localStorage.setItem('sh_bodytype',type);
+    }
+  </script>
+</body>
+</html>

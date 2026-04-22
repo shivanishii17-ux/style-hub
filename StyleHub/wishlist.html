@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wishlist — StyleHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --primary:#6C3BFF;--accent:#C850C0;
+      --grad:linear-gradient(135deg,#6C3BFF,#C850C0);
+      --bg:#f3f4f6;--surface:#fff;--border:#e5e7eb;
+      --text:#111827;--text2:#374151;--text3:#6b7280;
+      --radius:16px;--font-head:'Outfit',sans-serif;--font-body:'Inter',sans-serif;
+    }
+    body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:40px;}
+
+    /* Header */
+    .page-header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+    .back-btn{width:38px;height:38px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text2);font-size:1.1rem;transition:background .2s;}
+    .back-btn:hover{background:#ede9fe;}
+    .page-title{font-family:var(--font-head);font-size:1.2rem;font-weight:800;}
+    .page-title span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .header-count{margin-left:auto;background:#fef2f2;color:#ef4444;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:999px;border:1px solid #fecaca;}
+
+    /* Tabs */
+    .tabs{display:flex;gap:8px;padding:20px 20px 0;max-width:960px;margin:0 auto;}
+    .tab{padding:9px 20px;border-radius:999px;font-size:.82rem;font-weight:600;font-family:var(--font-body);border:1.5px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;transition:all .2s;}
+    .tab.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(108,59,255,.3);}
+
+    /* Container */
+    .container{max-width:960px;margin:0 auto;padding:20px 16px;}
+
+    /* Empty state */
+    .empty{text-align:center;padding:60px 20px;color:var(--text3);}
+    .empty-icon{font-size:3.5rem;margin-bottom:14px;}
+    .empty h3{font-family:var(--font-head);font-size:1.2rem;font-weight:700;margin-bottom:8px;color:var(--text2);}
+    .empty p{font-size:.85rem;line-height:1.6;margin-bottom:20px;}
+    .go-btn{display:inline-block;padding:10px 24px;border-radius:999px;background:var(--grad);color:#fff;font-size:.85rem;font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(108,59,255,.35);}
+
+    /* Product grid */
+    .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+    .prod-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:transform .2s,box-shadow .2s;position:relative;}
+    .prod-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(108,59,255,.12);}
+    .prod-card-img{aspect-ratio:3/4;overflow:hidden;background:#f9fafb;}
+    .prod-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+    .prod-card:hover .prod-card-img img{transform:scale(1.06);}
+    .prod-card-body{padding:12px 14px 14px;}
+    .prod-card-brand{font-size:.68rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;}
+    .prod-card-name{font-size:.88rem;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.3;}
+    .prod-card-occ{font-size:.72rem;color:var(--text3);margin-bottom:10px;}
+    .prod-card-actions{display:flex;gap:8px;}
+    .remove-btn{flex:1;padding:7px;border-radius:999px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;font-size:.72rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:background .2s;}
+    .remove-btn:hover{background:#fee2e2;}
+    .remove-badge{position:absolute;top:10px;right:10px;background:#ef4444;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:transform .2s;}
+    .remove-badge:hover{transform:scale(1.15);}
+
+    /* Outfits grid */
+    .outfit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+    .outfit-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;}
+    .outfit-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+    .outfit-date{font-size:.72rem;color:var(--text3);}
+    .outfit-score{font-family:var(--font-head);font-size:1.1rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .outfit-pieces{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+    .outfit-piece{padding:4px 10px;background:#f0ebff;border-radius:999px;font-size:.72rem;font-weight:600;color:var(--primary);}
+    .del-btn{padding:6px 14px;border-radius:999px;background:var(--bg);border:1px solid var(--border);font-size:.72rem;font-weight:600;color:#ef4444;cursor:pointer;font-family:var(--font-body);}
+    .del-btn:hover{background:#fff1f1;border-color:#ef4444;}
+
+    /* Section header */
+    .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+    .section-title{font-family:var(--font-head);font-size:1rem;font-weight:800;color:var(--text);}
+    .clear-btn{padding:6px 16px;border-radius:999px;background:var(--bg);border:1.5px solid var(--border);font-size:.75rem;font-weight:600;color:var(--text3);cursor:pointer;font-family:var(--font-body);}
+    .clear-btn:hover{border-color:#ef4444;color:#ef4444;}
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <a onclick="history.back()" class="back-btn" style="cursor:pointer">←</a>
+    <div class="page-title">❤️ My <span>Wishlist</span></div>
+    <div class="header-count" id="header-count">0 items</div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" id="tab-liked" onclick="switchTab('liked')">❤️ Liked Products</button>
+    <button class="tab" id="tab-outfits" onclick="switchTab('outfits')">👗 Saved Outfits</button>
+  </div>
+
+  <div class="container" id="container"></div>
+
+  <script>
+    let currentTab = 'liked';
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.getElementById('tab-liked').classList.toggle('active', tab === 'liked');
+      document.getElementById('tab-outfits').classList.toggle('active', tab === 'outfits');
+      render();
+    }
+
+    function getWishlist() { return JSON.parse(localStorage.getItem('sh_wishlist') || '[]'); }
+    function getOutfits()  { return JSON.parse(localStorage.getItem('sh_outfits')  || '[]'); }
+
+    function updateCount() {
+      const total = getWishlist().length + getOutfits().length;
+      document.getElementById('header-count').textContent = `${total} item${total !== 1 ? 's' : ''}`;
+    }
+
+    function removeProduct(name) {
+      let list = getWishlist();
+      list = list.filter(i => i.name !== name);
+      localStorage.setItem('sh_wishlist', JSON.stringify(list));
+      render();
+      updateCount();
+    }
+
+    function deleteOutfit(i) {
+      const outfits = getOutfits();
+      outfits.splice(i, 1);
+      localStorage.setItem('sh_outfits', JSON.stringify(outfits));
+      render();
+      updateCount();
+    }
+
+    function clearAll() {
+      if (currentTab === 'liked') {
+        if (!confirm('Remove all liked products?')) return;
+        localStorage.removeItem('sh_wishlist');
+      } else {
+        if (!confirm('Clear all saved outfits?')) return;
+        localStorage.removeItem('sh_outfits');
+      }
+      render();
+      updateCount();
+    }
+
+    function render() {
+      const c = document.getElementById('container');
+      if (currentTab === 'liked') renderLiked(c);
+      else renderOutfits(c);
+    }
+
+    function renderLiked(c) {
+      const list = getWishlist();
+      if (!list.length) {
+        c.innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">🤍</div>
+            <h3>No liked products yet</h3>
+            <p>Tap the ♡ heart on any product card to save it here.</p>
+            <a href="index.html" class="go-btn">Browse Products →</a>
+          </div>`;
+        return;
+      }
+      c.innerHTML = `
+        <div class="section-header">
+          <div class="section-title">${list.length} Liked Product${list.length !== 1 ? 's' : ''}</div>
+          <button class="clear-btn" onclick="clearAll()">Remove All</button>
+        </div>
+        <div class="products-grid" id="prod-grid"></div>`;
+
+      const grid = document.getElementById('prod-grid');
+      list.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'prod-card';
+        card.innerHTML = `
+          <div class="prod-card-img">
+            <img src="${item.img}" alt="${item.name}" loading="lazy"/>
+          </div>
+          <button class="remove-badge" onclick="removeProduct('${item.name.replace(/'/g,"\\'")}')">♥</button>
+          <div class="prod-card-body">
+            <div class="prod-card-brand">${item.brand}</div>
+            <div class="prod-card-name">${item.name}</div>
+            <div class="prod-card-occ">📅 ${item.occasion}</div>
+            <div class="prod-card-actions">
+              <button class="remove-btn" onclick="removeProduct('${item.name.replace(/'/g,"\\'")}')">Remove ✕</button>
+            </div>
+          </div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderOutfits(c) {
+      const outfits = getOutfits();
+      if (!outfits.length) {
+        c.innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">👗</div>
+            <h3>No saved outfits yet</h3>
+            <p>Build and save outfits from the Outfit Builder to see them here.</p>
+            <a href="outfit-builder.html" class="go-btn">Open Outfit Builder →</a>
+          </div>`;
+        return;
+      }
+      c.innerHTML = `
+        <div class="section-header">
+          <div class="section-title">${outfits.length} Saved Outfit${outfits.length !== 1 ? 's' : ''}</div>
+          <button class="clear-btn" onclick="clearAll()">Clear All</button>
+        </div>
+        <div class="outfit-grid" id="outfit-grid"></div>`;
+
+      const grid = document.getElementById('outfit-grid');
+      outfits.forEach((o, i) => {
+        const pieces = Object.entries(o.outfit).map(([k, v]) => `<span class="outfit-piece">${v}</span>`).join('');
+        const div = document.createElement('div');
+        div.className = 'outfit-card';
+        div.innerHTML = `
+          <div class="outfit-card-top">
+            <span class="outfit-date">📅 ${o.date}</span>
+            <span class="outfit-score">Score: ${o.score}</span>
+          </div>
+          <div class="outfit-pieces">${pieces}</div>
+          <button class="del-btn" onclick="deleteOutfit(${i})">Remove ✕</button>`;
+        grid.appendChild(div);
+      });
+    }
+
+    render();
+    updateCount();
+  </script>
+</body>
+</html>

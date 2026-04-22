@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>New Collection — StyleHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --primary:#6C3BFF;--accent:#C850C0;
+      --grad:linear-gradient(135deg,#6C3BFF,#C850C0);
+      --bg:#f3f4f6;--surface:#fff;--border:#e5e7eb;
+      --text:#111827;--text2:#374151;--text3:#6b7280;
+      --radius:16px;--font-head:'Outfit',sans-serif;--font-body:'Inter',sans-serif;
+    }
+    body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:40px;}
+
+    /* Header */
+    .page-header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+    .back-btn{width:38px;height:38px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text2);font-size:1.1rem;cursor:pointer;transition:background .2s;}
+    .back-btn:hover{background:#ede9fe;}
+    .page-title{font-family:var(--font-head);font-size:1.2rem;font-weight:800;}
+    .page-title span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+    /* Hero banner */
+    .collection-hero{
+      background:linear-gradient(135deg,#6C3BFF,#C850C0);
+      padding:40px 24px;text-align:center;color:#fff;
+    }
+    .collection-hero h1{font-family:var(--font-head);font-size:clamp(1.8rem,5vw,3rem);font-weight:800;margin-bottom:8px;}
+    .collection-hero p{font-size:.95rem;opacity:.85;}
+
+    /* Category tabs */
+    .cat-tabs{display:flex;gap:8px;flex-wrap:wrap;padding:20px 20px 0;max-width:1200px;margin:0 auto;}
+    .cat-tab{padding:8px 20px;border-radius:999px;font-size:.82rem;font-weight:600;font-family:var(--font-body);border:1.5px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;transition:all .2s;}
+    .cat-tab.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(108,59,255,.3);}
+
+    /* Grid */
+    .container{max-width:1200px;margin:0 auto;padding:20px 16px;}
+    .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+
+    /* Product card */
+    .product-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;}
+    .product-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(108,59,255,.12);}
+    .prod-img-wrap{position:relative;aspect-ratio:3/4;overflow:hidden;background:#f9fafb;}
+    .prod-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+    .product-card:hover .prod-img-wrap img{transform:scale(1.08);}
+    .prod-wish{position:absolute;top:8px;right:8px;width:30px;height:30px;background:rgba(255,255,255,.85);backdrop-filter:blur(6px);border-radius:50%;font-size:1rem;color:#9CA3AF;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;transition:color .2s,background .2s;}
+    .prod-wish:hover{color:#EF4444;background:#fff;}
+    .prod-wish.active{color:#EF4444;}
+    .prod-info{padding:10px 12px 14px;}
+    .prod-brand{font-size:.68rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;}
+    .prod-name{font-size:.88rem;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.3;}
+    .prod-occasion{font-size:.72rem;color:var(--text3);}
+    .prod-palette{display:inline-block;margin-top:6px;font-size:.68rem;font-weight:600;color:var(--primary);background:#f0ebff;padding:2px 8px;border-radius:999px;}
+
+    /* Empty */
+    .empty{text-align:center;padding:60px 20px;color:var(--text3);}
+    .empty-icon{font-size:3rem;margin-bottom:12px;}
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <a onclick="history.back()" class="back-btn" style="cursor:pointer">←</a>
+    <div class="page-title">✨ New <span>Collection</span></div>
+  </header>
+
+  <div class="collection-hero">
+    <h1>New Collection 2026</h1>
+    <p>Explore the latest styles across all categories</p>
+  </div>
+
+  <div class="cat-tabs" id="cat-tabs"></div>
+  <div class="container">
+    <div class="products-grid" id="products-grid"></div>
+  </div>
+
+  <script>
+    const ALL_PRODUCTS = {
+      'Kids': [
+        { img:'https://www.sheknows.com/wp-content/uploads/2023/09/Screen-Shot-2023-09-21-at-2.42.38-PM.png?w=1440', name:'Coastal Twinning Set', brand:'Twinning Trends', occasion:'Day Out / School', palette:'Spring Palette' },
+        { img:'https://www.fancydresswale.com/cdn/shop/products/Newborn-Toddler-Kids-Monkey-Printed-Baby-Boys-Clothing-Set-Long-Sleeve-Tops-Pants-Little-Kids-All-season-Outfits_-Brown-fancydresswale.com-53415029.jpg?v=1753687562', name:'Jungle Explorer PJ Set', brand:'Playful Prints', occasion:'Park / Birthday', palette:'Contrast Play' },
+        { img:'https://images.unsplash.com/photo-1621454523226-eb4f39255651?w=400&q=80', name:'Summer Citrus Co-ord', brand:'Pastel Dreams', occasion:'Picnic / Summer Party', palette:'Soft Citrus' },
+        { img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGRY42jsZh0AoTqmy7X_6IUG_DXR3Z_S-mxw&s', name:'Linen Sky Adventure Set', brand:'Linen Minis', occasion:'Beach / Casual Play', palette:'Beach Mix' },
+        { img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWPomUWhmBD7MCyxGW8ry_BBJBehf5or08Zg&s', name:'Urban Tech Tracksuit', brand:'Sport Connect', occasion:'Sports / Travel', palette:'Dynamic Duo' },
+        { img:'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=400&q=80', name:'Blossom Gala Festive Set', brand:'Celebration Sets', occasion:'Birthday Party', palette:'Fairy Tone' },
+        { img:'https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=400&q=80', name:'Rainbow Knit Set', brand:'Tiny Threads', occasion:'Casual / Everyday', palette:'Rainbow Mix' },
+        { img:'https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=400&q=80', name:'Floral Summer Dress', brand:'Bloom Kids', occasion:'Park / Birthday', palette:'Floral Bright' },
+        { img:'https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?w=400&q=80', name:'Denim Play Jacket', brand:'Mini Denim', occasion:'School / Weekend', palette:'Indigo Blue' },
+      ],
+      'Mens': [
+        { img:'https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&q=80', name:'Slim Fit Dress Shirt', brand:'Modern Formal', occasion:'Office / Formal Meeting', palette:'Crisp Classic' },
+        { img:'https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=800&q=80', name:'Indigo Heritage Jacket', brand:'Denim Legend', occasion:'Casual Trip / Weekend', palette:'Slate Harmony' },
+        { img:'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=800&q=80', name:'Ivory Knit Cardigan', brand:'Luxe Knits', occasion:'Resort Wear / Evening', palette:'Quiet Luxury' },
+        { img:'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=800&q=80', name:'Utility Edge Trousers', brand:'Utility Chic', occasion:'Hiking / Casual Friday', palette:'Military Minimal' },
+        { img:'https://images.unsplash.com/photo-1506634572416-48cdfe530110?w=800&q=80', name:'Nautical Cotton Polo', brand:'Smart Casual', occasion:'Brunch / Golf Course', palette:'Nautical Blend' },
+        { img:'https://images.unsplash.com/photo-1589310243389-96a5483213a8?w=800&q=80', name:'Heritage Mandarin Kurta', brand:'Heritage Style', occasion:'Traditional Ceremony', palette:'Ethnic Fire' },
+        { img:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80', name:'Classic Linen Shirt', brand:'Linen Co', occasion:'Casual / Resort', palette:'Warm Linen' },
+        { img:'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80', name:'Smart Blazer Look', brand:'Sharp Cuts', occasion:'Office / Meeting', palette:'Charcoal Sharp' },
+        { img:'https://images.unsplash.com/photo-1534030347209-467a5b0ad3e6?w=400&q=80', name:'Ethnic Kurta Set', brand:'Heritage Wear', occasion:'Festivals / Ceremonies', palette:'Ethnic Gold' },
+      ],
+      'Girls': [
+        { img:'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=800&q=80', name:'Wildflower Garden Dress', brand:'Enchanted Petals', occasion:'Birthday Party / Picnic', palette:'Spring Bloom' },
+        { img:'https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?w=800&q=80', name:'Classic Denim Day Jacket', brand:'Indigo Legend', occasion:'School / Weekend Trip', palette:'Indigo Blue' },
+        { img:'https://images.unsplash.com/photo-1515255384510-33005a96851f?w=800&q=80', name:'Cloud-Soft Knit Cardigan', brand:'Luxe Knits', occasion:'Family Brunch / Recital', palette:'Ivory Glow' },
+        { img:'https://images.unsplash.com/photo-1542385151-efd9000785a0?w=800&q=80', name:'Midnight Starry Tutu Set', brand:'Whimsical Sky', occasion:'Gala Night / Festive', palette:'Starry Night' },
+        { img:'https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?w=800&q=80', name:'Heritage Denim Overalls', brand:'Little Wanderer', occasion:'Playdate / Outdoor Fun', palette:'Urban Tonal' },
+        { img:'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80', name:'Petal Pink Summer Duo', brand:'Summer Vibes', occasion:'Beach Trip / Summer Party', palette:'Sunny Play' },
+        { img:'https://images.unsplash.com/photo-1502781252888-9143ba7f074e?w=400&q=80', name:'Pastel Midi Dress', brand:'Soft Hues', occasion:'Brunch / Day Date', palette:'Pastel Soft' },
+        { img:'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80', name:'Boho Floral Maxi', brand:'Free Spirit', occasion:'Garden Party', palette:'Boho Bloom' },
+        { img:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80', name:'Street Style Set', brand:'Urban Girl', occasion:'Casual / Street', palette:'Urban Pop' },
+      ],
+      'Womens': [
+        { img:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80', name:'Midnight Wrap Dress', brand:'Luxe Femme', occasion:'Evening / Gala', palette:'Midnight Gold' },
+        { img:'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80', name:'Blush Co-ord Set', brand:'Pastel Studio', occasion:'Brunch / Day Date', palette:'Blush Mono' },
+        { img:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80', name:'Structured Power Blazer', brand:'Corporate Edge', occasion:'Office / Presentation', palette:'Boardroom' },
+        { img:'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800&q=80', name:'Garden Floral Maxi', brand:'Bloom & Co', occasion:'Garden Party / Wedding', palette:'Garden Fresh' },
+        { img:'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800&q=80', name:'Embroidered Anarkali', brand:'Ethnic Roots', occasion:'Festivals / Ceremonies', palette:'Festive Fire' },
+        { img:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80', name:'Street Style Cargo Set', brand:'Urban Muse', occasion:'Casual / Street', palette:'Urban Pop' },
+        { img:'https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=400&q=80', name:'Silk Evening Gown', brand:'Luxe Atelier', occasion:'Evening / Gala', palette:'Silk Gold' },
+        { img:'https://images.unsplash.com/photo-1502781252888-9143ba7f074e?w=400&q=80', name:'Pastel Co-ord', brand:'Pastel Studio', occasion:'Brunch / Day Date', palette:'Blush Mono' },
+      ],
+      'Accessories': [
+        { img:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80', name:'Classic Tan Tote', brand:'Leather Craft', occasion:'Office / Weekend', palette:'Tan & Brown' },
+        { img:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80', name:'Minimalist Steel Watch', brand:'Time Craft', occasion:'Formal / Smart Casual', palette:'Steel Minimal' },
+        { img:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=80', name:'Layered Gold Necklace', brand:'Gold Atelier', occasion:'Festive / Evening', palette:'Warm Gold' },
+        { img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80', name:'Clean White Sneakers', brand:'Sole Story', occasion:'Casual / Street', palette:'Clean White' },
+        { img:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80', name:'Oversized Tortoise Frames', brand:'Sun & Shade', occasion:'Beach / Outdoor', palette:'Tortoise' },
+        { img:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80', name:'Quilted Crossbody Bag', brand:'Mini Luxe', occasion:'Evening / Dinner', palette:'Navy & Gold' },
+        { img:'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=400&q=80', name:'Pearl Drop Earrings', brand:'Pearl House', occasion:'Evening / Festive', palette:'Pearl White' },
+        { img:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80', name:'Aviator Sunglasses', brand:'Sun & Shade', occasion:'Casual / Outdoor', palette:'Gold Frame' },
+      ],
+    };
+
+    let activeTab = 'All';
+
+    function getWishlist() { return JSON.parse(localStorage.getItem('sh_wishlist') || '[]'); }
+    function isWishlisted(name) { return getWishlist().some(i => i.name === name); }
+    function toggleWishlistItem(name, img, brand, occasion) {
+      let list = getWishlist();
+      const idx = list.findIndex(i => i.name === name);
+      if (idx > -1) { list.splice(idx, 1); localStorage.setItem('sh_wishlist', JSON.stringify(list)); return false; }
+      else { list.push({ name, img, brand, occasion, addedAt: Date.now() }); localStorage.setItem('sh_wishlist', JSON.stringify(list)); return true; }
+    }
+
+    function renderTabs() {
+      const tabs = document.getElementById('cat-tabs');
+      const cats = ['All', ...Object.keys(ALL_PRODUCTS)];
+      tabs.innerHTML = '';
+      cats.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'cat-tab' + (cat === activeTab ? ' active' : '');
+        btn.textContent = cat;
+        btn.onclick = () => { activeTab = cat; renderTabs(); renderGrid(); };
+        tabs.appendChild(btn);
+      });
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = '';
+      const items = activeTab === 'All'
+        ? Object.values(ALL_PRODUCTS).flat()
+        : ALL_PRODUCTS[activeTab] || [];
+
+      items.forEach(item => {
+        const card = document.createElement('article');
+        card.className = 'product-card';
+        const wishlisted = isWishlisted(item.name);
+        card.innerHTML = `
+          <div class="prod-img-wrap">
+            <img src="${item.img}" alt="${item.name}" loading="lazy"/>
+            <button class="prod-wish${wishlisted ? ' active' : ''}" style="color:${wishlisted ? '#EF4444' : ''}">${wishlisted ? '♥' : '♡'}</button>
+          </div>
+          <div class="prod-info">
+            <p class="prod-brand">${item.brand}</p>
+            <p class="prod-name">${item.name}</p>
+            <p class="prod-occasion">${item.occasion}</p>
+            <span class="prod-palette">${item.palette}</span>
+          </div>`;
+
+        // Wishlist
+        card.querySelector('.prod-wish').addEventListener('click', (e) => {
+          e.stopPropagation();
+          const btn = e.currentTarget;
+          const added = toggleWishlistItem(item.name, item.img, item.brand, item.occasion);
+          btn.textContent = added ? '♥' : '♡';
+          btn.classList.toggle('active', added);
+          btn.style.color = added ? '#EF4444' : '';
+          btn.style.transform = 'scale(1.4)';
+          setTimeout(() => btn.style.transform = '', 200);
+          showToast(added ? `♥ "${item.name}" added to Wishlist` : `♡ "${item.name}" removed from Wishlist`);
+        });
+
+        // Click to show detail modal
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.prod-wish')) return;
+          showModal(item);
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    function showModal(item) {
+      let modal = document.getElementById('prod-modal');
+      if (modal) modal.remove();
+      modal = document.createElement('div');
+      modal.id = 'prod-modal';
+      modal.style.cssText = 'position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);padding:16px;';
+      const wishlisted = isWishlisted(item.name);
+      modal.innerHTML = `
+        <div style="background:#fff;border-radius:24px;max-width:440px;width:100%;box-shadow:0 32px 80px rgba(0,0,0,0.25);overflow:hidden;max-height:90vh;overflow-y:auto;">
+          <div style="position:relative;aspect-ratio:4/3;overflow:hidden;">
+            <img src="${item.img}" style="width:100%;height:100%;object-fit:cover;"/>
+            <button onclick="document.getElementById('prod-modal').remove()" style="position:absolute;top:12px;right:12px;width:34px;height:34px;background:rgba(255,255,255,.9);border:none;border-radius:50%;cursor:pointer;font-size:1.1rem;">✕</button>
+          </div>
+          <div style="padding:20px 22px 24px;">
+            <p style="font-size:.72rem;font-weight:700;color:#6C3BFF;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">${item.brand}</p>
+            <h2 style="font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:800;color:#111827;margin-bottom:14px;">${item.name}</h2>
+            <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+              <div style="flex:1;min-width:120px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:10px 12px;">
+                <p style="font-size:.68rem;font-weight:700;color:#16a34a;text-transform:uppercase;margin-bottom:3px;">📅 Occasion</p>
+                <p style="font-size:.82rem;font-weight:600;color:#111827;">${item.occasion}</p>
+              </div>
+              <div style="flex:1;min-width:120px;background:#f9f7ff;border:1px solid #ede9fe;border-radius:12px;padding:10px 12px;">
+                <p style="font-size:.68rem;font-weight:700;color:#6C3BFF;text-transform:uppercase;margin-bottom:3px;">🎨 Palette</p>
+                <p style="font-size:.82rem;font-weight:600;color:#111827;">${item.palette}</p>
+              </div>
+            </div>
+            <button id="modal-wish-btn" style="width:100%;padding:13px;background:${wishlisted ? '#EF4444' : 'linear-gradient(135deg,#6C3BFF,#C850C0)'};color:#fff;font-size:.9rem;font-weight:700;font-family:'Inter',sans-serif;border:none;border-radius:999px;cursor:pointer;box-shadow:0 6px 20px rgba(108,59,255,.35);">
+              ${wishlisted ? '♥ Saved to Wishlist' : '♡ Save to Wishlist'}
+            </button>
+          </div>
+        </div>`;
+      modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+      document.body.appendChild(modal);
+      document.getElementById('modal-wish-btn').addEventListener('click', () => {
+        const added = toggleWishlistItem(item.name, item.img, item.brand, item.occasion);
+        const btn = document.getElementById('modal-wish-btn');
+        btn.textContent = added ? '♥ Saved to Wishlist' : '♡ Save to Wishlist';
+        btn.style.background = added ? '#EF4444' : 'linear-gradient(135deg,#6C3BFF,#C850C0)';
+        showToast(added ? `♥ "${item.name}" added to Wishlist` : `♡ "${item.name}" removed from Wishlist`);
+      });
+    }
+
+    let toastTimeout;
+    function showToast(msg) {
+      let t = document.getElementById('sh-toast');
+      if (!t) { t = document.createElement('div'); t.id = 'sh-toast'; t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#111118;color:#fff;padding:10px 22px;border-radius:999px;font-family:Inter,sans-serif;font-size:.85rem;font-weight:500;white-space:nowrap;z-index:9999;box-shadow:0 6px 24px rgba(0,0,0,.2);opacity:0;transition:opacity .22s ease,transform .22s ease;pointer-events:none;'; document.body.appendChild(t); }
+      t.textContent = msg; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(10px)'; }, 2200);
+    }
+
+    // Check if a category was passed via URL
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('cat');
+    if (cat && ALL_PRODUCTS[cat]) activeTab = cat;
+
+    renderTabs();
+    renderGrid();
+  </script>
+</body>
+</html>

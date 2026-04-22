@@ -1,16 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Style Hub — Fashion for Everyone</title>
-  <meta name="description" content="Discover the latest fashion trends for Kids, Men, Boys, Girls & Women at Style Hub. Shop top clothing categories with free shipping." />
+  <title>Style Hub — Your AI Fashion Stylist</title>
+  <meta name="description"
+    content="Get expert fashion advice on color combinations and outfit suitability for every occasion. Master your style with Style Hub." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Roboto:wght@400;700;900&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+  <!-- ══════════════════ SPLASH SCREEN ══════════════════ -->
+  <div id="splash-screen">
+    <!-- Particle canvas -->
+    <canvas id="splash-canvas"></canvas>
+
+    <!-- Ambient orbs -->
+    <div class="splash-orb splash-orb-1"></div>
+    <div class="splash-orb splash-orb-2"></div>
+    <div class="splash-orb splash-orb-3"></div>
+
+    <!-- Horizontal light streak -->
+    <div class="splash-streak"></div>
+
+    <!-- Core content -->
+    <div class="splash-content">
+      <!-- Logo word mark — bubble letters -->
+      <div class="splash-logo-wrap" id="splash-logo-wrap">
+        <h1 class="splash-logo-text">
+          <span class="bubble-letter bl-s">S</span><span class="bubble-letter bl-t">T</span><span
+            class="bubble-letter bl-y">Y</span><span class="bubble-letter bl-l">L</span><span
+            class="bubble-letter bl-e">E</span><span class="bubble-gap"></span><span
+            class="bubble-letter bl-h">H</span><span class="bubble-letter bl-u">U</span><span
+            class="bubble-letter bl-b2">B</span>
+        </h1>
+      </div>
+
+      <!-- Divider line -->
+      <div class="splash-divider" id="splash-divider"></div>
+
+      <!-- Tagline -->
+      <p class="splash-tagline" id="splash-tagline">Your AI Fashion Stylist</p>
+    </div>
+
+    <!-- Bottom progress bar -->
+    <div class="splash-progress">
+      <div class="splash-progress-fill" id="splash-progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ AUTH SCREEN ══════════════════ -->
+  <div id="auth-screen">
+    <div class="auth-bg-orb auth-orb-1"></div>
+    <div class="auth-bg-orb auth-orb-2"></div>
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+            <path d="M16 2L4 8v8c0 7 5.2 13.5 12 15.5C22.8 29.5 28 23 28 16V8L16 2z" fill="url(#authLogoGrad)" />
+            <path d="M11 16l3 3 7-7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            <defs>
+              <linearGradient id="authLogoGrad" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6C3BFF" />
+                <stop offset="1" stop-color="#C850C0" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="logo-text">Style<span class="logo-accent">Hub</span></span>
+      </div>
+      <p class="auth-sub">Your AI Fashion Stylist</p>
+
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Login</button>
+        <button class="auth-tab" id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
+      </div>
+
+      <!-- Login Form -->
+      <form class="auth-form" id="form-login" onsubmit="handleLogin(event)">
+        <div class="auth-field">
+          <label>Email</label>
+          <input type="email" id="login-email" placeholder="you@example.com" required autocomplete="email" />
+        </div>
+        <div class="auth-field">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password" />
+        </div>
+        <p class="auth-error" id="login-error"></p>
+        <button type="submit" class="auth-btn">Login</button>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form class="auth-form auth-form-hidden" id="form-signup" onsubmit="handleSignup(event)">
+        <div class="auth-field">
+          <label>Name</label>
+          <input type="text" id="signup-name" placeholder="Your name" required autocomplete="name" />
+        </div>
+        <div class="auth-field">
+          <label>Email</label>
+          <input type="email" id="signup-email" placeholder="you@example.com" required autocomplete="email" />
+        </div>
+        <div class="auth-field">
+          <label>Password</label>
+          <input type="password" id="signup-password" placeholder="Min 6 characters" required
+            autocomplete="new-password" />
+        </div>
+        <p class="auth-error" id="signup-error"></p>
+        <button type="submit" class="auth-btn">Create Account</button>
+      </form>
+    </div>
+  </div>
 
   <!-- ══════════════════ HEADER ══════════════════ -->
   <header class="header" id="header">
@@ -20,12 +126,12 @@
       <a href="#" class="logo" id="logo-link">
         <div class="logo-icon">
           <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-            <path d="M16 2L4 8v8c0 7 5.2 13.5 12 15.5C22.8 29.5 28 23 28 16V8L16 2z" fill="url(#logoGrad)"/>
-            <path d="M11 16l3 3 7-7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 2L4 8v8c0 7 5.2 13.5 12 15.5C22.8 29.5 28 23 28 16V8L16 2z" fill="url(#logoGrad)" />
+            <path d="M11 16l3 3 7-7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
             <defs>
               <linearGradient id="logoGrad" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#6C3BFF"/>
-                <stop offset="1" stop-color="#C850C0"/>
+                <stop stop-color="#6C3BFF" />
+                <stop offset="1" stop-color="#C850C0" />
               </linearGradient>
             </defs>
           </svg>
@@ -36,46 +142,32 @@
       <!-- Search Bar -->
       <div class="search-wrap" id="search-wrap">
         <div class="search-bar">
-          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
           </svg>
-          <input
-            type="text"
-            id="search-input"
-            class="search-input"
-            placeholder="Search dresses, tops, shirts, kids wear…"
-            autocomplete="off"
-          />
+          <input type="text" id="search-input" class="search-input"
+            placeholder="Search dresses, tops, shirts, kids wear…" autocomplete="off" />
           <button class="search-clear" id="search-clear" aria-label="Clear search">×</button>
         </div>
-        <!-- Visual Search / Camera Button -->
-        <button class="camera-btn" id="camera-btn" aria-label="Visual search with camera" title="Search by image">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
-            <circle cx="12" cy="13" r="4"/>
-          </svg>
-          <span class="camera-tooltip">Visual Search</span>
-        </button>
       </div>
 
       <!-- Header Right Actions -->
       <div class="header-actions">
-        <button class="action-btn" aria-label="Wishlist" title="Wishlist">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+        <button class="action-btn" aria-label="Saved Styles" title="Saved Styles">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
           </svg>
-          <span class="badge">3</span>
+          <span class="badge">12</span>
         </button>
-        <button class="action-btn" aria-label="Cart" title="Shopping cart">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-            <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
-          </svg>
-          <span class="badge">5</span>
-        </button>
-        <button class="action-btn profile-btn" aria-label="Account" title="My Account">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        <button class="action-btn" aria-label="Style Guide" title="Style Guide">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
           </svg>
         </button>
         <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -86,59 +178,95 @@
 
     <!-- Mobile Menu -->
     <nav class="mobile-menu" id="mobile-menu">
-      <a href="#kids-row">Kids</a>
-      <a href="#mens-row">Mens &amp; Boys</a>
-      <a href="#womens-row">Girls &amp; Womens</a>
-      <a href="#">Sale 🔥</a>
-      <a href="#">New Arrivals ✨</a>
+      <!-- Nav items removed per request -->
     </nav>
 
     <!-- Desktop Nav -->
     <nav class="desktop-nav">
-      <a href="#kids-row" class="nav-item">Kids</a>
-      <a href="#mens-row" class="nav-item">Mens &amp; Boys</a>
-      <a href="#womens-row" class="nav-item">Girls &amp; Womens</a>
-      <a href="#" class="nav-item nav-sale">Sale 🔥</a>
-      <a href="#" class="nav-item">New Arrivals</a>
-      <a href="#" class="nav-item">Brands</a>
     </nav>
   </header>
 
   <!-- ══════════════════ MAIN ══════════════════ -->
   <main class="main">
 
-    <!-- ─── HERO BANNER ─── -->
-    <section class="hero-banner">
-      <div class="hero-text">
-        <span class="hero-tag">Spring / Summer 2026</span>
-        <h1 class="hero-title">Fashion That<br/><span class="hero-accent">Feels Like You</span></h1>
-        <p class="hero-sub">Explore curated collections for every age, style &amp; season.</p>
-        <div class="hero-btns">
-          <button class="btn-primary" onclick="document.getElementById('kids-row').scrollIntoView({behavior:'smooth'})">Shop Now</button>
-          <button class="btn-outline" onclick="document.getElementById('womens-row').scrollIntoView({behavior:'smooth'})">Explore Lookbook →</button>
-        </div>
+    <!-- ─── SUMMER VIBE HERO (IMAGE + OVERLAY TYPOGRAPHY) ─── -->
+    <section class="hero-summer">
+      <div class="hero-summer-bg"></div>
+      <div class="hero-alphabet-overlay">S</div>
+
+      <div class="hero-summer-content">
+        <span class="hero-tag-summer">Summer 2026 Advice</span>
+        <h1 class="hero-title">STYLE<span class="hero-title-hub">HUB</span></h1>
+        <p class="hero-sub">Expert advice on color combinations and summery styles.</p>
+        <div class="hero-btns-centered"><button class="btn-primary" onclick="document.getElementById('kids-row').scrollIntoView({behavior:'smooth'});">View More ?</button></div>
       </div>
-      <div class="hero-visual">
-        <div class="hero-img-wrap">
-          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Fashion model in stylish outfit" class="hero-img" loading="lazy"/>
-          <div class="hero-badge-float">
-            <span class="hbf-label">New In</span>
-            <span class="hbf-num">200+</span>
-            <span class="hbf-sub">Styles</span>
+    </section>
+
+    <!-- ─── FEATURES GRID ─── -->
+    <section class="features-grid-section">
+      <div class="features-grid">
+        <a href="outfit-builder.html" class="feature-card">
+          <div class="fc-icon">👗</div>
+          <div class="fc-text">
+            <div class="fc-title">Outfit Builder</div>
+            <div class="fc-sub">Mix & score combinations</div>
           </div>
-        </div>
+          <span class="fc-arrow">›</span>
+        </a>
+        <a href="color-picker.html" class="feature-card">
+          <div class="fc-icon">🎨</div>
+          <div class="fc-text">
+            <div class="fc-title">Color Picker</div>
+            <div class="fc-sub">Check color compatibility</div>
+          </div>
+          <span class="fc-arrow">›</span>
+        </a>
+
+        <a href="weather-outfit.html" class="feature-card">
+          <div class="fc-icon">🌤️</div>
+          <div class="fc-text">
+            <div class="fc-title">Weather Outfit</div>
+            <div class="fc-sub">Dress for today's weather</div>
+          </div>
+          <span class="fc-arrow">›</span>
+        </a>
+
+        <a href="wishlist.html" class="feature-card">
+          <div class="fc-icon">❤️</div>
+          <div class="fc-text">
+            <div class="fc-title">My Wishlist</div>
+            <div class="fc-sub">View saved outfits</div>
+          </div>
+          <span class="fc-arrow">›</span>
+        </a>
+        <a href="advisor.html" class="feature-card">
+          <div class="fc-icon">🤖</div>
+          <div class="fc-text">
+            <div class="fc-title">AI Advisor</div>
+            <div class="fc-sub">Chat with your stylist</div>
+          </div>
+          <span class="fc-arrow">›</span>
+        </a>
+        <a href="profile.html" class="feature-card">
+          <div class="fc-icon">👤</div>
+          <div class="fc-text">
+            <div class="fc-title">My Profile</div>
+            <div class="fc-sub">Stats, dark mode & more</div>
+          </div>
+          <span class="fc-arrow">›</span>
+        </a>
       </div>
     </section>
 
     <!-- ─── PROMO STRIP ─── -->
     <div class="promo-strip">
-      <span>🚚 Free Shipping on orders over ₹999</span>
+      <span>🎨 Discover Harmonious Color Palettes</span>
       <span class="strip-sep">|</span>
-      <span>🔄 Easy 30-day Returns</span>
+      <span>👔 Occasion-Ready Recommendations</span>
       <span class="strip-sep">|</span>
-      <span>✨ New Arrivals Every Week</span>
+      <span>✨ Master the Art of Dressing Room</span>
       <span class="strip-sep">|</span>
-      <span>💳 EMI Available</span>
+      <span>🧠 AI-Powered Styling Tips</span>
     </div>
 
     <!-- ══════════════════════════════════════
@@ -147,15 +275,18 @@
     <section class="category-row" id="kids-row">
       <div class="category-label-col">
         <div class="cat-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2a5 5 0 015 5v2H7V7a5 5 0 015-5z"/>
-            <rect x="3" y="9" width="18" height="13" rx="2"/>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a5 5 0 015 5v2H7V7a5 5 0 015-5z" />
+            <rect x="3" y="9" width="18" height="13" rx="2" />
           </svg>
         </div>
         <h2 class="cat-name">Kids</h2>
-        <p class="cat-desc">Fun &amp; comfy<br/>styles for little ones</p>
-        <button class="cat-cta-btn" id="kids-cat-btn">Categories
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <p class="cat-desc">Color palettes &amp;<br />outfit pairings for kids</p>
+        <button class="cat-cta-btn" id="kids-cat-btn">Get Palette
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
         </button>
         <div class="cat-sub-links">
           <span class="sub-chip">Boys 2–12</span>
@@ -170,101 +301,130 @@
         <div class="product-scroll" id="kids-scroll">
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?w=400&q=80" alt="Kids colorful t-shirt" loading="lazy"/>
-              <span class="prod-tag new">New</span>
+            <div class="prod-img-wrap ken-burns">
+              <img
+                src="https://www.sheknows.com/wp-content/uploads/2023/09/Screen-Shot-2023-09-21-at-2.42.38-PM.png?w=1440"
+                alt="Siblings in coastal matching outfits" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">UrbanKids</p>
-              <p class="prod-name">Printed Cotton Tee</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹349</span>
-                <span class="prod-mrp">₹699</span>
-                <span class="prod-disc">50% off</span>
+              <p class="prod-brand">Twinning Trends</p>
+              <p class="prod-name">Coastal Twinning Set</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #FFD700;"></span>
+                  <span class="color-block" style="background: #FFFFFF;"></span>
+                  <span class="color-block" style="background: #808080;"></span>
+                  <span class="palette-label">Spring Palette</span>
+                </div>
+                <p class="style-occasion">Day Out / School</p>
+                <div class="style-suitability">✅ High Suitability</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1471286174890-9c112ac6823b?w=400&q=80" alt="Kids denim overalls" loading="lazy"/>
-              <span class="prod-tag sale">Sale</span>
+            <div class="prod-img-wrap ken-burns">
+              <img
+                src="https://www.fancydresswale.com/cdn/shop/products/Newborn-Toddler-Kids-Monkey-Printed-Baby-Boys-Clothing-Set-Long-Sleeve-Tops-Pants-Little-Kids-All-season-Outfits_-Brown-fancydresswale.com-53415029.jpg?v=1753687562"
+                alt="Kid in jungle motif outfit" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">TinyStyle</p>
-              <p class="prod-name">Denim Dungaree Set</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹699</span>
-                <span class="prod-mrp">₹1199</span>
-                <span class="prod-disc">42% off</span>
+              <p class="prod-brand">Playful Prints</p>
+              <p class="prod-name">Jungle Explorer PJ Set</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #4A69BD;"></span>
+                  <span class="color-block" style="background: #EE5A24;"></span>
+                  <span class="palette-label">Contrast Play</span>
+                </div>
+                <p class="style-occasion">Park / Birthday</p>
+                <div class="style-suitability">✅ Perfect for Active Kids</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400&q=80" alt="Kids summer dress" loading="lazy"/>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1621454523226-eb4f39255651?w=800&q=80"
+                alt="Siblings in matching citrus yellow outfits" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">LittleFash</p>
-              <p class="prod-name">Floral Summer Frock</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹499</span>
-                <span class="prod-mrp">₹899</span>
-                <span class="prod-disc">44% off</span>
+              <p class="prod-brand">Pastel Dreams</p>
+              <p class="prod-name">Summer Citrus Co-ord</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #FFEAA7;"></span>
+                  <span class="color-block" style="background: #FDCB6E;"></span>
+                  <span class="palette-label">Soft Citrus</span>
+                </div>
+                <p class="style-occasion">Picnic / Summer Party</p>
+                <div class="style-suitability">✅ Sun-Safe & Breathable</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=400&q=80" alt="Kids casual shorts set" loading="lazy"/>
-              <span class="prod-tag trending">Trending</span>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGRY42jsZh0AoTqmy7X_6IUG_DXR3Z_S-mxw&s"
+                alt="Kid in matched shirt and short set" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">Kiddos</p>
-              <p class="prod-name">Shorts &amp; Tee Combo</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹549</span>
-                <span class="prod-mrp">₹999</span>
-                <span class="prod-disc">45% off</span>
+              <p class="prod-brand">Linen Minis</p>
+              <p class="prod-name">Linen Sky Adventure Set</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #F8EFBA;"></span>
+                  <span class="color-block" style="background: #25CCF7;"></span>
+                  <span class="palette-label">Beach Mix</span>
+                </div>
+                <p class="style-occasion">Beach / Casual Play</p>
+                <div class="style-suitability">✅ Breathable Comfort</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1570569295-01b4e2f0a7f5?w=400&q=80" alt="Kids tracksuit" loading="lazy"/>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWPomUWhmBD7MCyxGW8ry_BBJBehf5or08Zg&s"
+                alt="Kid in urban high-fashion tracksuit" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">SportKid</p>
-              <p class="prod-name">Athletic Tracksuit</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹799</span>
-                <span class="prod-mrp">₹1399</span>
-                <span class="prod-disc">43% off</span>
+              <p class="prod-brand">Sport Connect</p>
+              <p class="prod-name">Urban Tech Tracksuit</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #1B1464;"></span>
+                  <span class="color-block" style="background: #ED4C67;"></span>
+                  <span class="palette-label">Dynamic Duo</span>
+                </div>
+                <p class="style-occasion">Sports / Travel</p>
+                <div class="style-suitability">✅ High Utility</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1550639525-c97d455acf70?w=400&q=80" alt="Kids party wear dress" loading="lazy"/>
-              <span class="prod-tag new">New</span>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=400&q=80"
+                alt="Kid in fancy pink party dress" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">LittleFash</p>
-              <p class="prod-name">Party Frock - Pink</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹899</span>
-                <span class="prod-mrp">₹1499</span>
-                <span class="prod-disc">40% off</span>
+              <p class="prod-brand">Celebration Sets</p>
+              <p class="prod-name">Blossom Gala Festive Set</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #FF66CC;"></span>
+                  <span class="color-block" style="background: #FFCCFF;"></span>
+                  <span class="palette-label">Fairy Tone</span>
+                </div>
+                <p class="style-occasion">Birthday Party</p>
+                <div class="style-suitability">✅ Elegant Choice</div>
               </div>
             </div>
           </article>
@@ -280,14 +440,18 @@
     <section class="category-row alt-row" id="mens-row">
       <div class="category-label-col">
         <div class="cat-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="7" r="4"/><path d="M5.5 21a8.38 8.38 0 0113 0"/>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="7" r="4" />
+            <path d="M5.5 21a8.38 8.38 0 0113 0" />
           </svg>
         </div>
-        <h2 class="cat-name">Mens &amp;<br/>Boys</h2>
-        <p class="cat-desc">Sharp &amp; casual<br/>everyday wear</p>
-        <button class="cat-cta-btn" id="mens-cat-btn">Shop All
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <h2 class="cat-name">Mens &amp;<br />Boys</h2>
+        <p class="cat-desc">Sophisticated color<br />matching for men</p>
+        <button class="cat-cta-btn" id="mens-cat-btn">View Pairings
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
         </button>
         <div class="cat-sub-links">
           <span class="sub-chip">Shirts</span>
@@ -302,101 +466,127 @@
         <div class="product-scroll" id="mens-scroll">
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80" alt="Men white dress shirt" loading="lazy"/>
-              <span class="prod-tag new">New</span>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=400&q=80"
+                alt="Man in white linen and grey trousers" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">FormalEdge</p>
+              <p class="prod-brand">Modern Formal</p>
               <p class="prod-name">Slim Fit Dress Shirt</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹699</span>
-                <span class="prod-mrp">₹1299</span>
-                <span class="prod-disc">46% off</span>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #FFFFFF;"></span>
+                  <span class="color-block" style="background: #D1D8E0;"></span>
+                  <span class="palette-label">Crisp Classic</span>
+                </div>
+                <p class="style-occasion">Office / Formal Meeting</p>
+                <div class="style-suitability">✅ Professional Sharpness</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=400&q=80" alt="Men casual denim jacket" loading="lazy"/>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=400&q=80"
+                alt="Man in high-fidelity indigo denim" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">UrbanDen</p>
-              <p class="prod-name">Washed Denim Jacket</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹1299</span>
-                <span class="prod-mrp">₹2499</span>
-                <span class="prod-disc">48% off</span>
+              <p class="prod-brand">Denim Legend</p>
+              <p class="prod-name">Indigo Heritage Jacket</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #2C3E50;"></span>
+                  <span class="color-block" style="background: #95A5A6;"></span>
+                  <span class="palette-label">Slate Harmony</span>
+                </div>
+                <p class="style-occasion">Casual Trip / Weekend Adventure</p>
+                <div class="style-suitability">✅ Editorial Standard</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=400&q=80" alt="Men black t-shirt" loading="lazy"/>
-              <span class="prod-tag trending">Trending</span>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"
+                alt="Man in premium ivory knit cardigan" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">BasixCo</p>
-              <p class="prod-name">Oversized Graphic Tee</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹449</span>
-                <span class="prod-mrp">₹799</span>
-                <span class="prod-disc">44% off</span>
+              <p class="prod-brand">Luxe Knits</p>
+              <p class="prod-name">Ivory Knit Cardigan</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #F5F5F5;"></span>
+                  <span class="color-block" style="background: #333333;"></span>
+                  <span class="palette-label">Quiet Luxury</span>
+                </div>
+                <p class="style-occasion">Resort Wear / Evening Social</p>
+                <div class="style-suitability">✅ High Clarity Focus</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&q=80" alt="Men trousers" loading="lazy"/>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80"
+                alt="Man in utility tonal combo" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">SlimFit Co</p>
-              <p class="prod-name">Cargo Slim Trousers</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹899</span>
-                <span class="prod-mrp">₹1699</span>
-                <span class="prod-disc">47% off</span>
+              <p class="prod-brand">Utility Chic</p>
+              <p class="prod-name">Utility Edge Trousers</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #2F3640;"></span>
+                  <span class="color-block" style="background: #718093;"></span>
+                  <span class="palette-label">Military Minimal</span>
+                </div>
+                <p class="style-occasion">Hiking / Casual Friday</p>
+                <div class="style-suitability">✅ High Durability</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1602810319428-019690571b5b?w=400&q=80" alt="Men polo shirt" loading="lazy"/>
-              <span class="prod-tag sale">Sale</span>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1534030347209-467a5b0ad3e6?w=400&q=80"
+                alt="Man in smart casual nautical style" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">PoloElite</p>
-              <p class="prod-name">Classic Polo Shirt</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹549</span>
-                <span class="prod-mrp">₹999</span>
-                <span class="prod-disc">45% off</span>
+              <p class="prod-brand">Smart Casual</p>
+              <p class="prod-name">Nautical Cotton Polo</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #4834D4;"></span>
+                  <span class="color-block" style="background: #FFFFFF;"></span>
+                  <span class="palette-label">Nautical Blend</span>
+                </div>
+                <p class="style-occasion">Brunch / Golf Course</p>
+                <div class="style-suitability">✅ All-Day Style</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=400&q=80" alt="Men ethnic kurta" loading="lazy"/>
-              <span class="prod-tag new">New</span>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=400&q=80"
+                alt="Man in ethnic heritage palette" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">EthnicVibe</p>
-              <p class="prod-name">Mandarin Collar Kurta</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹799</span>
-                <span class="prod-mrp">₹1499</span>
-                <span class="prod-disc">47% off</span>
+              <p class="prod-brand">Heritage Style</p>
+              <p class="prod-name">Heritage Mandarin Kurta</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #FFBE76;"></span>
+                  <span class="color-block" style="background: #EA2027;"></span>
+                  <span class="palette-label">Ethnic Fire</span>
+                </div>
+                <p class="style-occasion">Traditional Ceremony / Festivals</p>
+                <div class="style-suitability">✅ Culturally Rich</div>
               </div>
             </div>
           </article>
@@ -409,134 +599,569 @@
     <!-- ══════════════════════════════════════
          ROW 3 — GIRLS & WOMENS
     ═══════════════════════════════════════ -->
-    <section class="category-row" id="womens-row">
+    <section class="category-row" id="girls-row">
       <div class="category-label-col">
         <div class="cat-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="5" r="3"/>
-            <path d="M12 8v5m-4 3l4-3 4 3M8 21h8"/>
-            <path d="M6 14l-2 7M18 14l2 7"/>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+            <path d="M12 7v5l3 3" />
           </svg>
         </div>
-        <h2 class="cat-name">Girls &amp;<br/>Womens</h2>
-        <p class="cat-desc">Elegant &amp; vibrant<br/>fashion picks</p>
-        <button class="cat-cta-btn" id="womens-cat-btn">Shop All
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <h2 class="cat-name">Girls<br />Gallery</h2>
+        <p class="cat-desc">Charming &amp; vibrant<br />outfits for young icons</p>
+        <button class="cat-cta-btn" id="girls-cat-btn">Explore Styles
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
         </button>
         <div class="cat-sub-links">
           <span class="sub-chip">Dresses</span>
-          <span class="sub-chip">Sarees</span>
-          <span class="sub-chip">Tops</span>
-          <span class="sub-chip">Western</span>
+          <span class="sub-chip">Skirts</span>
+          <span class="sub-chip">Denim</span>
+          <span class="sub-chip">Party</span>
         </div>
       </div>
 
       <div class="product-scroll-wrap">
-        <button class="scroll-arrow left" onclick="scrollRow('womens-scroll',-1)" aria-label="Scroll left">‹</button>
-        <div class="product-scroll" id="womens-scroll">
+        <button class="scroll-arrow left" onclick="scrollRow('girls-scroll',-1)" aria-label="Scroll left">‹</button>
+        <div class="product-scroll" id="girls-scroll">
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=400&q=80" alt="Women floral maxi dress" loading="lazy"/>
-              <span class="prod-tag new">New</span>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=800&q=80"
+                alt="Girl in enchanting floral garden dress" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">FloraLux</p>
-              <p class="prod-name">Floral Maxi Wrap Dress</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹999</span>
-                <span class="prod-mrp">₹1999</span>
-                <span class="prod-disc">50% off</span>
+              <p class="prod-brand">Enchanted Petals</p>
+              <p class="prod-name">Wildflower Garden Dress</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #FFB8B8;"></span>
+                  <span class="color-block" style="background: #78E08F;"></span>
+                  <span class="palette-label">Spring Bloom</span>
+                </div>
+                <p class="style-occasion">Birthday Party / Picnic</p>
+                <div class="style-suitability">✅ Soft & Twirl-Ready</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80" alt="Women chic blazer outfit" loading="lazy"/>
-              <span class="prod-tag trending">Trending</span>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?w=800&q=80"
+                alt="Girl in classic indigo denim jacket" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">ChicWear</p>
-              <p class="prod-name">Tailored Blazer Set</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹1499</span>
-                <span class="prod-mrp">₹2999</span>
-                <span class="prod-disc">50% off</span>
+              <p class="prod-brand">Indigo Legend</p>
+              <p class="prod-name">Classic Denim Day Jacket</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #2C3E50;"></span>
+                  <span class="color-block" style="background: #95A5A6;"></span>
+                  <span class="palette-label">Indigo Blue</span>
+                </div>
+                <p class="style-occasion">School / Weekend Trip</p>
+                <div class="style-suitability">✅ High Durability</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&q=80" alt="Women summer crop top" loading="lazy"/>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1515255384510-33005a96851f?w=800&q=80"
+                alt="Girl in cozy ivory knit cardigan" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">SummerVibes</p>
-              <p class="prod-name">Ruched Crop Top</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹399</span>
-                <span class="prod-mrp">₹799</span>
-                <span class="prod-disc">50% off</span>
+              <p class="prod-brand">Luxe Knits</p>
+              <p class="prod-name">Cloud-Soft Knit Cardigan</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #F5F5F5;"></span>
+                  <span class="color-block" style="background: #333333;"></span>
+                  <span class="palette-label">Ivory Glow</span>
+                </div>
+                <p class="style-occasion">Family Brunch / Recital</p>
+                <div class="style-suitability">✅ Cozy Texture</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1551803091-e20673f15770?w=400&q=80" alt="Women ethnic kurta" loading="lazy"/>
-              <span class="prod-tag sale">Sale</span>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1542385151-efd9000785a0?w=800&q=80"
+                alt="Girl in starry party tutu dress" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">EthnicBliss</p>
-              <p class="prod-name">Printed Anarkali Kurta</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹849</span>
-                <span class="prod-mrp">₹1699</span>
-                <span class="prod-disc">50% off</span>
+              <p class="prod-brand">Whimsical Sky</p>
+              <p class="prod-name">Midnight Starry Tutu Set</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #303952;"></span>
+                  <span class="color-block" style="background: #f8a5c2;"></span>
+                  <span class="palette-label">Starry Night</span>
+                </div>
+                <p class="style-occasion">Gala Night / Festive Celeb</p>
+                <div class="style-suitability">✅ Twirl Verified</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80" alt="Women bodycon dress" loading="lazy"/>
-              <span class="prod-tag new">New</span>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?w=800&q=80"
+                alt="Girl in cute utility denim overalls" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">GlamFit</p>
-              <p class="prod-name">Velvet Bodycon Dress</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹1199</span>
-                <span class="prod-mrp">₹2199</span>
-                <span class="prod-disc">45% off</span>
+              <p class="prod-brand">Little Wanderer</p>
+              <p class="prod-name">Heritage Denim Overalls</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #2f3542;"></span>
+                  <span class="color-block" style="background: #ced6e0;"></span>
+                  <span class="palette-label">Urban Tonal</span>
+                </div>
+                <p class="style-occasion">Playdate / Outdoor Fun</p>
+                <div class="style-suitability">✅ Super Comfort</div>
               </div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="prod-img-wrap">
-              <img src="https://images.unsplash.com/photo-1583846783214-7229a5eb4f60?w=400&q=80" alt="Women boho skirt" loading="lazy"/>
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80"
+                alt="Girl in vibrant summer sunsuit" loading="lazy" />
               <button class="prod-wish" aria-label="Add to wishlist">♡</button>
             </div>
             <div class="prod-info">
-              <p class="prod-brand">BohoSoul</p>
-              <p class="prod-name">Tiered Maxi Skirt</p>
-              <div class="prod-price-row">
-                <span class="prod-price">₹749</span>
-                <span class="prod-mrp">₹1399</span>
-                <span class="prod-disc">46% off</span>
+              <p class="prod-brand">Summer Vibes</p>
+              <p class="prod-name">Petal Pink Summer Duo</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background: #ED4C67;"></span>
+                  <span class="color-block" style="background: #FFC312;"></span>
+                  <span class="palette-label">Sunny Play</span>
+                </div>
+                <p class="style-occasion">Beach Trip / Summer Party</p>
+                <div class="style-suitability">✅ Breathable Fabric</div>
               </div>
             </div>
           </article>
 
         </div>
-        <button class="scroll-arrow right" onclick="scrollRow('womens-scroll',1)" aria-label="Scroll right">›</button>
+        <button class="scroll-arrow right" onclick="scrollRow('girls-scroll',1)" aria-label="Scroll right">›</button>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         ROW 4 — WOMENS
+    ═══════════════════════════════════════ -->
+    <section class="category-row alt-row" id="womens-row">
+      <div class="category-label-col">
+        <div class="cat-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M12 12v8M9 18h6" />
+          </svg>
+        </div>
+        <h2 class="cat-name">Womens</h2>
+        <p class="cat-desc">Elegant palettes &amp;<br />occasion dressing</p>
+        <button class="cat-cta-btn" id="womens-cat-btn">Explore
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </button>
+        <div class="cat-sub-links">
+          <span class="sub-chip">Sarees</span>
+          <span class="sub-chip">Dresses</span>
+          <span class="sub-chip">Workwear</span>
+          <span class="sub-chip">Ethnic</span>
+        </div>
+      </div>
+      <div class="product-scroll-wrap">
+        <button class="scroll-arrow left" onclick="scrollRow('womens-scroll',-1)">‹</button>
+        <div class="product-scroll" id="womens-scroll">
+          <article class="product-card">
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80"
+                alt="Woman in elegant wrap dress" loading="lazy" />
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Luxe Femme</p>
+              <p class="prod-name">Midnight Wrap Dress</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background:#1a1a2e"></span>
+                  <span class="color-block" style="background:#c9a96e"></span>
+                  <span class="palette-label">Midnight Gold</span>
+                </div>
+                <p class="style-occasion">Evening / Gala</p>
+                <div class="style-suitability">✅ Statement Dressing</div>
+              </div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80"
+                alt="Woman in pastel co-ord set" loading="lazy" />
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Pastel Studio</p>
+              <p class="prod-name">Blush Co-ord Set</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background:#f8c8d4"></span>
+                  <span class="color-block" style="background:#e8a0b0"></span>
+                  <span class="palette-label">Blush Mono</span>
+                </div>
+                <p class="style-occasion">Brunch / Day Date</p>
+                <div class="style-suitability">✅ Effortless Chic</div>
+              </div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80"
+                alt="Woman in power blazer" loading="lazy" />
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Corporate Edge</p>
+              <p class="prod-name">Structured Power Blazer</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background:#2d3436"></span>
+                  <span class="color-block" style="background:#dfe6e9"></span>
+                  <span class="palette-label">Boardroom</span>
+                </div>
+                <p class="style-occasion">Office / Presentation</p>
+                <div class="style-suitability">✅ Authority Dressing</div>
+              </div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800&q=80"
+                alt="Woman in floral maxi" loading="lazy" />
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Bloom & Co</p>
+              <p class="prod-name">Garden Floral Maxi</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background:#a8e6cf"></span>
+                  <span class="color-block" style="background:#ff8b94"></span>
+                  <span class="palette-label">Garden Fresh</span>
+                </div>
+                <p class="style-occasion">Garden Party / Wedding</p>
+                <div class="style-suitability">✅ Romantic Palette</div>
+              </div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800&q=80"
+                alt="Woman in ethnic kurta" loading="lazy" />
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Ethnic Roots</p>
+              <p class="prod-name">Embroidered Anarkali</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background:#c0392b"></span>
+                  <span class="color-block" style="background:#f39c12"></span>
+                  <span class="palette-label">Festive Fire</span>
+                </div>
+                <p class="style-occasion">Festivals / Ceremonies</p>
+                <div class="style-suitability">✅ Culturally Vibrant</div>
+              </div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80"
+                alt="Woman in street style" loading="lazy" />
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Urban Muse</p>
+              <p class="prod-name">Street Style Cargo Set</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background:#636e72"></span>
+                  <span class="color-block" style="background:#fdcb6e"></span>
+                  <span class="palette-label">Urban Pop</span>
+                </div>
+                <p class="style-occasion">Casual / Street</p>
+                <div class="style-suitability">✅ Bold & Edgy</div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <button class="scroll-arrow right" onclick="scrollRow('womens-scroll',1)">›</button>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         ROW 5 — ACCESSORIES
+    ═══════════════════════════════════════ -->
+    <section class="category-row" id="accessories-row">
+      <div class="category-label-col">
+        <div class="cat-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+          </svg>
+        </div>
+        <h2 class="cat-name">Accessories</h2>
+        <p class="cat-desc">Complete your look<br />with the right accents</p>
+        <button class="cat-cta-btn" id="acc-cat-btn">Style It
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </button>
+        <div class="cat-sub-links">
+          <span class="sub-chip">Bags</span>
+          <span class="sub-chip">Watches</span>
+          <span class="sub-chip">Jewellery</span>
+          <span class="sub-chip">Footwear</span>
+        </div>
+      </div>
+      <div class="product-scroll-wrap">
+        <button class="scroll-arrow left" onclick="scrollRow('acc-scroll',-1)">‹</button>
+        <div class="product-scroll" id="acc-scroll">
+          <article class="product-card">
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80" alt="Leather tote bag"
+                loading="lazy" />
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Leather Craft</p>
+              <p class="prod-name">Classic Tan Tote</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background:#c8a97e"></span>
+                  <span class="color-block" style="background:#2d1b0e"></span>
+                  <span class="palette-label">Tan & Brown</span>
+                </div>
+                <p class="style-occasion">Office / Weekend</p>
+                <div class="style-suitability">✅ Pairs with Everything</div>
+              </div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80" alt="Minimalist watch"
+                loading="lazy" />
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Time Craft</p>
+              <p class="prod-name">Minimalist Steel Watch</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background:#b2bec3"></span>
+                  <span class="color-block" style="background:#2d3436"></span>
+                  <span class="palette-label">Steel Minimal</span>
+                </div>
+                <p class="style-occasion">Formal / Smart Casual</p>
+                <div class="style-suitability">✅ Timeless Classic</div>
+              </div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=80"
+                alt="Gold jewellery set" loading="lazy" />
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Gold Atelier</p>
+              <p class="prod-name">Layered Gold Necklace</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background:#f9ca24"></span>
+                  <span class="color-block" style="background:#f0932b"></span>
+                  <span class="palette-label">Warm Gold</span>
+                </div>
+                <p class="style-occasion">Festive / Evening</p>
+                <div class="style-suitability">✅ Elevates Any Outfit</div>
+              </div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80" alt="Sneakers"
+                loading="lazy" />
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Sole Story</p>
+              <p class="prod-name">Clean White Sneakers</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background:#ffffff"></span>
+                  <span class="color-block" style="background:#dfe6e9"></span>
+                  <span class="palette-label">Clean White</span>
+                </div>
+                <p class="style-occasion">Casual / Street</p>
+                <div class="style-suitability">✅ Universal Pairing</div>
+              </div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80" alt="Sunglasses"
+                loading="lazy" />
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Sun & Shade</p>
+              <p class="prod-name">Oversized Tortoise Frames</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background:#8B4513"></span>
+                  <span class="color-block" style="background:#D2691E"></span>
+                  <span class="palette-label">Tortoise</span>
+                </div>
+                <p class="style-occasion">Beach / Outdoor</p>
+                <div class="style-suitability">✅ Face-Framing</div>
+              </div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="prod-img-wrap ken-burns">
+              <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80" alt="Crossbody bag"
+                loading="lazy" />
+              <button class="prod-wish" aria-label="Add to wishlist">♡</button>
+            </div>
+            <div class="prod-info">
+              <p class="prod-brand">Mini Luxe</p>
+              <p class="prod-name">Quilted Crossbody Bag</p>
+              <div class="prod-styling">
+                <div class="palette-mood">
+                  <span class="color-block" style="background:#2c2c54"></span>
+                  <span class="color-block" style="background:#c8a97e"></span>
+                  <span class="palette-label">Navy & Gold</span>
+                </div>
+                <p class="style-occasion">Evening / Dinner</p>
+                <div class="style-suitability">✅ Compact Elegance</div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <button class="scroll-arrow right" onclick="scrollRow('acc-scroll',1)">›</button>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         COLOR THEORY SECTION
+    ═══════════════════════════════════════ -->
+    <section class="color-theory-section" id="color-theory">
+      <div class="ct-header">
+        <span class="ct-badge">🎨 Style Science</span>
+        <h2 class="ct-title">Color Pairing Rules</h2>
+        <p class="ct-sub">Master these combinations to always look put-together</p>
+      </div>
+      <div class="ct-grid">
+        <div class="ct-card">
+          <div class="ct-swatches">
+            <span style="background:#1a1a2e"></span><span style="background:#e2b96f"></span>
+          </div>
+          <h3>Navy + Gold</h3>
+          <p>Classic power combo. Navy grounds the look; gold adds warmth and authority.</p>
+          <span class="ct-tag">Formal · Evening</span>
+        </div>
+        <div class="ct-card">
+          <div class="ct-swatches">
+            <span style="background:#ffffff"></span><span style="background:#2d3436"></span>
+          </div>
+          <h3>White + Charcoal</h3>
+          <p>Timeless contrast. Works for every occasion from boardroom to brunch.</p>
+          <span class="ct-tag">Universal · All-Day</span>
+        </div>
+        <div class="ct-card">
+          <div class="ct-swatches">
+            <span style="background:#6c5ce7"></span><span style="background:#fd79a8"></span>
+          </div>
+          <h3>Purple + Pink</h3>
+          <p>Analogous harmony. These neighbouring hues create a dreamy, cohesive look.</p>
+          <span class="ct-tag">Casual · Playful</span>
+        </div>
+        <div class="ct-card">
+          <div class="ct-swatches">
+            <span style="background:#00b894"></span><span style="background:#e17055"></span>
+          </div>
+          <h3>Teal + Terracotta</h3>
+          <p>Complementary contrast. Bold and earthy — perfect for statement dressing.</p>
+          <span class="ct-tag">Boho · Statement</span>
+        </div>
+        <div class="ct-card">
+          <div class="ct-swatches">
+            <span style="background:#f8efba"></span><span style="background:#c8a97e"></span><span
+              style="background:#8B6914"></span>
+          </div>
+          <h3>Tonal Beige</h3>
+          <p>Monochromatic layering in warm neutrals. The quiet luxury formula.</p>
+          <span class="ct-tag">Quiet Luxury · Minimal</span>
+        </div>
+        <div class="ct-card">
+          <div class="ct-swatches">
+            <span style="background:#e84393"></span><span style="background:#ff6b35"></span>
+          </div>
+          <h3>Hot Pink + Orange</h3>
+          <p>Clashing brights done right. High energy, summer-ready, fearless.</p>
+          <span class="ct-tag">Summer · Bold</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SEASONAL TRENDS
+    ═══════════════════════════════════════ -->
+    <section class="trends-section" id="trends">
+      <div class="ct-header">
+        <span class="ct-badge">🔥 Now Trending</span>
+        <h2 class="ct-title">Season's Top Trends</h2>
+        <p class="ct-sub">What's dominating runways and streets right now</p>
+      </div>
+      <div class="trends-grid">
+        <div class="trend-card" style="--tc:#6c5ce7">
+          <div class="trend-icon">👗</div>
+          <h3>Quiet Luxury</h3>
+          <p>Understated, high-quality basics in neutral tones. No logos, all elegance.</p>
+          <div class="trend-chips"><span>Beige</span><span>Camel</span><span>Ivory</span></div>
+        </div>
+        <div class="trend-card" style="--tc:#e84393">
+          <div class="trend-icon">✨</div>
+          <h3>Dopamine Dressing</h3>
+          <p>Wear your mood. Bold, saturated colours that spark joy and confidence.</p>
+          <div class="trend-chips"><span>Hot Pink</span><span>Cobalt</span><span>Lime</span></div>
+        </div>
+        <div class="trend-card" style="--tc:#00b894">
+          <div class="trend-icon">🌿</div>
+          <h3>Eco Chic</h3>
+          <p>Sustainable fabrics in earthy, nature-inspired palettes. Fashion with conscience.</p>
+          <div class="trend-chips"><span>Sage</span><span>Terracotta</span><span>Sand</span></div>
+        </div>
+        <div class="trend-card" style="--tc:#f9ca24">
+          <div class="trend-icon">🏙️</div>
+          <h3>Gorpcore</h3>
+          <p>Outdoor utility meets street style. Technical fabrics, cargo pockets, bold boots.</p>
+          <div class="trend-chips"><span>Olive</span><span>Khaki</span><span>Orange</span></div>
+        </div>
       </div>
     </section>
 
@@ -562,10 +1187,11 @@
 
     <a href="#" class="bn-item" id="bn-accessibility" aria-label="Accessibility options">
       <div class="bn-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <circle cx="12" cy="8" r="2"/>
-          <path d="M8 13h8M10 13v5M14 13v5"/>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="8" r="2" />
+          <path d="M8 13h8M10 13v5M14 13v5" />
         </svg>
       </div>
       <span class="bn-label">Accessibility</span>
@@ -573,18 +1199,21 @@
 
     <a href="#header" class="bn-item bn-home active" id="bn-home" aria-label="Homepage">
       <div class="bn-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
         </svg>
       </div>
       <span class="bn-label">Homepage</span>
     </a>
 
-    <a href="#" class="bn-item" id="bn-profile" aria-label="My profile">
+    <a href="profile.html" class="bn-item" id="bn-profile" aria-label="My profile">
       <div class="bn-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
         </svg>
       </div>
       <span class="bn-label">Profile</span>
@@ -599,12 +1228,13 @@
         <div class="footer-logo">
           <div class="logo-icon small">
             <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
-              <path d="M16 2L4 8v8c0 7 5.2 13.5 12 15.5C22.8 29.5 28 23 28 16V8L16 2z" fill="url(#fLogoGrad)"/>
-              <path d="M11 16l3 3 7-7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 2L4 8v8c0 7 5.2 13.5 12 15.5C22.8 29.5 28 23 28 16V8L16 2z" fill="url(#fLogoGrad)" />
+              <path d="M11 16l3 3 7-7" stroke="#fff" stroke-width="2.2" stroke-linecap="round"
+                stroke-linejoin="round" />
               <defs>
                 <linearGradient id="fLogoGrad" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#6C3BFF"/>
-                  <stop offset="1" stop-color="#C850C0"/>
+                  <stop stop-color="#6C3BFF" />
+                  <stop offset="1" stop-color="#C850C0" />
                 </linearGradient>
               </defs>
             </svg>
@@ -614,10 +1244,10 @@
         <p class="footer-tagline">Fashion for every age, every moment.</p>
       </div>
       <div class="footer-links-col">
-        <h4>Shop</h4>
+        <h4>Style Advice</h4>
         <a href="#kids-row">Kids</a>
         <a href="#mens-row">Mens &amp; Boys</a>
-        <a href="#womens-row">Girls &amp; Womens</a>
+        <a href="#girls-row">Girls Gallery</a>
         <a href="#">New Arrivals</a>
       </div>
       <div class="footer-links-col">
@@ -638,6 +1268,13 @@
     <div class="footer-copy">© 2026 Style Hub · Designed with ♥ for fashion lovers</div>
   </footer>
 
+  <!-- ══════════════════ AI ADVISOR FLOATING BTN ══════════════════ -->
+  <div class="ai-fab" id="ai-fab" title="Ask AI Style Advisor">
+    <span class="ai-fab-icon">✨</span>
+    <span class="ai-fab-label">AI Stylist</span>
+  </div>
+
   <script src="app.js"></script>
 </body>
+
 </html>

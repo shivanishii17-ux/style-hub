@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Style Quiz — StyleHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--primary:#6C3BFF;--grad:linear-gradient(135deg,#6C3BFF,#C850C0);--bg:#f3f4f6;--surface:#fff;--border:#e5e7eb;--text:#111827;--text2:#374151;--text3:#6b7280;--radius:16px;--font-head:'Outfit',sans-serif;--font-body:'Inter',sans-serif;}
+    body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;}
+    .page-header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+    .back-btn{width:38px;height:38px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text2);font-size:1.1rem;}
+    .page-title{font-family:var(--font-head);font-size:1.2rem;font-weight:800;}
+    .page-title span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .container{max-width:700px;margin:0 auto;padding:24px 16px;}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:20px;}
+    .progress-bar{height:6px;background:var(--border);border-radius:3px;margin-bottom:24px;overflow:hidden;}
+    .progress-fill{height:100%;background:var(--grad);border-radius:3px;transition:width .4s ease;}
+    .q-num{font-size:.75rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+    .q-text{font-family:var(--font-head);font-size:1.2rem;font-weight:700;margin-bottom:20px;line-height:1.4;}
+    .options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .option{padding:16px;border:2px solid var(--border);border-radius:14px;background:var(--surface);cursor:pointer;text-align:center;transition:all .2s;}
+    .option:hover{border-color:var(--primary);background:#f0ebff;}
+    .option.selected{border-color:var(--primary);background:#f0ebff;box-shadow:0 0 0 3px rgba(108,59,255,.15);}
+    .option-emoji{font-size:1.8rem;margin-bottom:6px;}
+    .option-text{font-size:.82rem;font-weight:600;color:var(--text2);}
+    .nav-row{display:flex;justify-content:space-between;margin-top:20px;}
+    .nav-btn{padding:10px 24px;border-radius:999px;font-size:.85rem;font-weight:700;font-family:var(--font-body);cursor:pointer;transition:all .2s;}
+    .prev-btn{background:var(--bg);border:1.5px solid var(--border);color:var(--text2);}
+    .prev-btn:hover{border-color:var(--primary);color:var(--primary);}
+    .next-btn{background:var(--grad);color:#fff;border:none;box-shadow:0 4px 14px rgba(108,59,255,.35);}
+    .next-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(108,59,255,.5);}
+    .next-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+    /* Result */
+    .result-card{text-align:center;}
+    .result-emoji{font-size:4rem;margin-bottom:12px;}
+    .result-type{display:inline-block;padding:8px 20px;border-radius:999px;background:var(--grad);color:#fff;font-family:var(--font-head);font-size:1.1rem;font-weight:800;margin-bottom:16px;}
+    .result-desc{font-size:.9rem;color:var(--text2);line-height:1.7;margin-bottom:20px;}
+    .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left;}
+    .result-item{background:var(--bg);border-radius:12px;padding:14px;}
+    .result-item h4{font-size:.72rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+    .result-item p{font-size:.82rem;color:var(--text);font-weight:500;}
+    .retake-btn{margin-top:20px;padding:10px 24px;border-radius:999px;background:var(--bg);border:1.5px solid var(--border);font-size:.82rem;font-weight:600;font-family:var(--font-body);color:var(--text2);cursor:pointer;}
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <a onclick="history.back()" class="back-btn" style="cursor:pointer">←</a>
+    <div class="page-title">✨ Style <span>Quiz</span></div>
+  </header>
+  <div class="container">
+    <div class="card" id="quiz-card">
+      <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+      <div class="q-num" id="q-num">Question 1 of 6</div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+      <div class="nav-row">
+        <button class="nav-btn prev-btn" id="prev-btn" onclick="prev()" style="visibility:hidden">← Back</button>
+        <button class="nav-btn next-btn" id="next-btn" onclick="next()" disabled>Next →</button>
+      </div>
+    </div>
+    <div class="card" id="result-card" style="display:none"></div>
+  </div>
+  <script>
+    const QUESTIONS=[
+      {q:'What\'s your ideal weekend outfit?',opts:[{e:'🤍',t:'Simple white tee + tailored trousers',v:'minimal'},{e:'🌸',t:'Flowy floral dress + sandals',v:'boho'},{e:'🧢',t:'Oversized hoodie + cargo pants',v:'street'},{e:'👔',t:'Crisp shirt + chinos',v:'classic'}]},
+      {q:'Your go-to color palette?',opts:[{e:'🤍',t:'Beige, cream, white, grey',v:'minimal'},{e:'🌈',t:'Earthy tones, rust, sage, mustard',v:'boho'},{e:'🖤',t:'Black, white, bold pops',v:'street'},{e:'🔵',t:'Navy, burgundy, forest green',v:'classic'}]},
+      {q:'Which celebrity style do you admire most?',opts:[{e:'✨',t:'Minimalist, clean, no logos',v:'minimal'},{e:'🌿',t:'Free-spirited, layered, natural',v:'boho'},{e:'🔥',t:'Streetwear, sneakers, hype',v:'street'},{e:'💼',t:'Polished, timeless, elegant',v:'classic'}]},
+      {q:'Your ideal shopping destination?',opts:[{e:'🏪',t:'Uniqlo, COS, Muji',v:'minimal'},{e:'🌺',t:'Vintage stores, local markets',v:'boho'},{e:'👟',t:'Supreme, Nike, Off-White',v:'street'},{e:'🏬',t:'Ralph Lauren, Zara, Mango',v:'classic'}]},
+      {q:'How do you feel about accessories?',opts:[{e:'💍',t:'Minimal — one piece max',v:'minimal'},{e:'📿',t:'Layered, natural, handmade',v:'boho'},{e:'🧢',t:'Caps, chains, statement pieces',v:'street'},{e:'⌚',t:'Classic watch, simple jewelry',v:'classic'}]},
+      {q:'Your fashion motto?',opts:[{e:'🤍',t:'"Less is more"',v:'minimal'},{e:'🌸',t:'"Express your soul"',v:'boho'},{e:'🔥',t:'"Stand out, be bold"',v:'street'},{e:'💎',t:'"Dress for success"',v:'classic'}]},
+    ];
+
+    const RESULTS={
+      minimal:{emoji:'🤍',type:'Minimalist',desc:'You believe in the power of simplicity. Clean lines, neutral tones, and quality over quantity define your style. You\'re drawn to timeless pieces that work for any occasion.',palette:'Beige, white, grey, black, camel',icons:['Uniqlo','COS','Muji','The Row'],pieces:['White button-down shirt','Tailored trousers','Minimal leather bag','Clean white sneakers','Cashmere sweater']},
+      boho:{emoji:'🌸',type:'Bohemian',desc:'Free-spirited and creative, your style tells a story. You love natural fabrics, earthy tones, and pieces with soul. Vintage finds and handmade accessories are your signature.',palette:'Rust, sage, mustard, terracotta, cream',icons:['Free People','Anthropologie','Vintage stores'],pieces:['Flowy maxi dress','Embroidered blouse','Layered necklaces','Suede ankle boots','Wide-brim hat']},
+      street:{emoji:'🔥',type:'Streetwear',desc:'Bold, confident, and always on trend. You treat fashion as self-expression and aren\'t afraid to make a statement. Comfort meets cool in everything you wear.',palette:'Black, white, bold pops, neon accents',icons:['Nike','Adidas','Supreme','Off-White'],pieces:['Oversized hoodie','Cargo pants','Statement sneakers','Graphic tee','Bucket hat']},
+      classic:{emoji:'💼',type:'Classic Elegance',desc:'Polished, refined, and always appropriate. You invest in quality pieces that never go out of style. Your wardrobe is a collection of timeless essentials.',palette:'Navy, burgundy, forest green, camel, white',icons:['Ralph Lauren','Zara','Massimo Dutti'],pieces:['Tailored blazer','Crisp white shirt','Dark trousers','Leather loafers','Classic watch']},
+    };
+
+    let current=0;const answers=[];
+    function render(){
+      const q=QUESTIONS[current];
+      document.getElementById('q-num').textContent=`Question ${current+1} of ${QUESTIONS.length}`;
+      document.getElementById('q-text').textContent=q.q;
+      document.getElementById('progress').style.width=`${(current/QUESTIONS.length)*100}%`;
+      document.getElementById('prev-btn').style.visibility=current>0?'visible':'hidden';
+      document.getElementById('next-btn').disabled=!answers[current];
+      document.getElementById('next-btn').textContent=current===QUESTIONS.length-1?'See My Style ✨':'Next →';
+      const opts=document.getElementById('options');
+      opts.innerHTML='';
+      q.opts.forEach((o,i)=>{
+        const div=document.createElement('div');
+        div.className='option'+(answers[current]===o.v?' selected':'');
+        div.innerHTML=`<div class="option-emoji">${o.e}</div><div class="option-text">${o.t}</div>`;
+        div.onclick=()=>{answers[current]=o.v;render();};
+        opts.appendChild(div);
+      });
+    }
+    function next(){
+      if(!answers[current])return;
+      if(current===QUESTIONS.length-1){showResult();return;}
+      current++;render();
+    }
+    function prev(){if(current>0){current--;render();}}
+    function showResult(){
+      const counts={};answers.forEach(a=>counts[a]=(counts[a]||0)+1);
+      const type=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0];
+      const r=RESULTS[type];
+      localStorage.setItem('sh_style',r.type);
+      document.getElementById('quiz-card').style.display='none';
+      const rc=document.getElementById('result-card');
+      rc.style.display='block';
+      rc.innerHTML=`<div class="result-card"><div class="result-emoji">${r.emoji}</div><div class="result-type">Your Style: ${r.type}</div><p class="result-desc">${r.desc}</p><div class="result-grid"><div class="result-item"><h4>Your Palette</h4><p>${r.palette}</p></div><div class="result-item"><h4>Key Pieces</h4><p>${r.pieces.slice(0,3).join(', ')}</p></div><div class="result-item"><h4>More Pieces</h4><p>${r.pieces.slice(3).join(', ')}</p></div><div class="result-item"><h4>Shop At</h4><p>${r.icons.join(', ')}</p></div></div><button class="retake-btn" onclick="location.reload()">Retake Quiz</button></div>`;
+    }
+    render();
+  </script>
+</body>
+</html>
