@@ -6,7 +6,6 @@
    - Bottom nav active state
    - Wishlist toggle
    - Scroll-in animations (IntersectionObserver)
-   - Camera button ripple / visual search mock
 ═════════════════════════════════════════════ */
 
 /* ── DOM Ready ── */
